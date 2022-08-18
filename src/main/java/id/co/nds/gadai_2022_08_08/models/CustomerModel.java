@@ -27,7 +27,7 @@ public class CustomerModel extends RecordModel {
     @NotBlank(message = "Customer name is required",
             groups = {PostingNew.class})
     @Pattern(regexp = "^[a-zA-Z0-9 ]{1,30}$", message = "Customer name can't be empty, and has a maximum length of 30 characters",
-            groups = {UpdatingById.class, GettingAllByCriteria.class})
+            groups = {PostingNew.class, UpdatingById.class, GettingAllByCriteria.class})
     private String custName;
 
     @NotBlank(message = "Customer KTP is required",

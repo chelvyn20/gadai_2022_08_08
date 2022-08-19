@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Range;
 
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingAllByCriteria;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;
@@ -34,8 +37,11 @@ public class UserEntity {
     @Column(name = "user_name")
     private String userName;
 
-    @NotBlank(message = "user phone is required", groups = { PostingNew.class, GettingAllByCriteria.class,
-            UpdatingById.class })
+    // @NotBlank(message = "user phone is required", groups = { PostingNew.class,
+    // GettingAllByCriteria.class,
+    // UpdatingById.class })
+    @Pattern(regexp = "^08[0-9]{7,10}$", message = "User phone starts with 08 and contains 9-12 chars", groups = {
+            PostingNew.class, UpdatingById.class, GettingAllByCriteria.class })
     @Column(name = "user_phone")
     private String userPhone;
 
@@ -44,6 +50,9 @@ public class UserEntity {
     @Column(name = "user_notes")
     private String userNotes;
 
+    @NotNull(message = "User transaction limit is required", groups = { PostingNew.class })
+    @Range(min = 500000, max = 1000000000L, message = "User transaction limit is between 500.000 to 1.000.000.000", groups = {
+            PostingNew.class, UpdatingById.class })
     @Column(name = "max_limit")
     private Double maxLimit;
 

@@ -43,7 +43,7 @@ public class UserValidator {
 
     public void validateUserId(String userId) throws ClientException {
         if (userId.trim().equalsIgnoreCase("")) {
-            throw new ClientException("User id must contains 6 digit and start with ID");
+            throw new ClientException("User id must contains 15");
         }
     }
 

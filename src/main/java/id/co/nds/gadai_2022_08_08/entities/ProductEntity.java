@@ -29,23 +29,17 @@ public class ProductEntity {
     @GenericGenerator(name = "product_id_seq", strategy = "id.co.nds.gadai_2022_08_08.generators.ProductGenerator")
     @GeneratedValue(generator = "product_id_seq")
 
-    @NotBlank(message = "product id is required", groups = { PostingNew.class, GettingAllByCriteria.class,
-            UpdatingById.class, DeletingById.class })
     @Column(name = "product_id")
     private String productId;
 
-    @NotBlank(message = "product type is required", groups = { PostingNew.class, GettingAllByCriteria.class,
-            UpdatingById.class })
     @Column(name = "product_type")
     private String productType;
 
-    @NotBlank(message = "product name is required", groups = { PostingNew.class, GettingAllByCriteria.class,
-            UpdatingById.class })
     @Column(name = "product_name")
     private String productName;
 
-    @NotBlank(message = "user desc is required", groups = { PostingNew.class, GettingAllByCriteria.class,
-            UpdatingById.class })
+    @NotNull(groups = { PostingNew.class, GettingAllByCriteria.class, UpdatingById.class })
+    @Pattern(regexp = "^[a-zA-Z0-9]{1}.{0,254}$", groups = { PostingNew.class, UpdatingById.class })
     @Column(name = "product_desc")
     private String productDesc;
 

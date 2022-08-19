@@ -17,9 +17,8 @@ import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
 public class ProductModel extends RecordModel {
     private String productId;
 
-    // @Pattern(regexp = "^Konsinyasi Cicilan Tetap$|^Konsinyasi Cicilan
-    // Fleksibel$", message = "dont input other", groups = {
-    // PostingNew.class, GettingById.class, UpdatingById.class })
+    @Pattern(regexp = "^Konsinyasi Cicilan Tetap$|^Konsinyasi Cicilan Fleksibel$", message = "dont input other", groups = {
+            PostingNew.class, GettingById.class, UpdatingById.class })
     private String productType;
 
     private String productName;
@@ -37,16 +36,14 @@ public class ProductModel extends RecordModel {
 
     // @NotBlank(groups = { PostingNew.class,
     // UpdatingById.class })
-    // @Pattern(regexp = "^PERSEN$|^NOMINAL$", message = "dont input other", groups
-    // = { PostingNew.class,
-    // UpdatingById.class })
+    @Pattern(regexp = "^PERSEN$|^NOMINAL$", message = "dont input other", groups = { PostingNew.class,
+            UpdatingById.class })
     private String productBiayaAdminBukaTipe;
 
     // @NotBlank(groups = { PostingNew.class,
     // UpdatingById.class })
-    // @Pattern(regexp = "^PERSEN$|^NOMINAL$", message = "dont input other", groups
-    // = { PostingNew.class,
-    // UpdatingById.class })
+    @Pattern(regexp = "^PERSEN$|^NOMINAL$", message = "dont input other", groups = { PostingNew.class,
+            UpdatingById.class })
     private String productBiayaAdminTutupTipe;
 
     @Digits(integer = 3, fraction = 2, groups = { PostingNew.class, UpdatingById.class })
@@ -58,11 +55,12 @@ public class ProductModel extends RecordModel {
     @Digits(integer = 3, fraction = 2, groups = { PostingNew.class, UpdatingById.class })
     private BigDecimal productBiayaJasaPenyAfter;
 
-    @Range(min = 1, max = 999, groups = { PostingNew.class, UpdatingById.class })
+    // @Range(min = 1, max = 999, groups = { PostingNew.class, UpdatingById.class })
     private Integer productBiayaJasaPenyPeriode;
+
     private BigDecimal productBiayaDenda;
 
-    @Range(min = 1, max = 999, groups = { PostingNew.class, UpdatingById.class })
+    // @Range(min = 1, max = 999, groups = { PostingNew.class, UpdatingById.class })
     private Integer productBiayaDendaPeriode;
 
     private String actorId;

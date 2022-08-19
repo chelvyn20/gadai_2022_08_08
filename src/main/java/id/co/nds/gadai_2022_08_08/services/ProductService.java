@@ -29,18 +29,13 @@ public class ProductService implements Serializable {
         productValidator.validateproductId(productModel.getActorId());
         productValidator.nullCheckName(productModel.getProductName());
         productValidator.validateName(productModel.getProductName());
-        // productValidator.nullCheckDesc(productModel.getProductDesc());
-        // productValidator.validateDesc(productModel.getProductDesc());
         productValidator.validateJangkaWaktu(productModel.getProductJangkaWaktu());
         productValidator.validateLtv(productModel.getProductLtv().doubleValue());
         productValidator.validateBiayaAdminBuka(productModel.getProductBiayaAdminBuka().doubleValue());
         productValidator.validateBiayaAdminTutup(productModel.getProductBiayaAdminTutup().doubleValue());
-        // productValidator.validateBiayaJasaPeny(productModel.getProductBiayaJasaPeny().doubleValue());
-        // productValidator.validateBiayaJasaPenyPeriode(productModel.getProductBiayaJasaPenyPeriode());
         productValidator.validateJasaPenyPeriode(productModel.getProductBiayaJasaPenyPeriode(),
                 productModel.getProductJangkaWaktu());
         productValidator.validateBiayaDenda(productModel.getProductBiayaDenda().doubleValue());
-        // productValidator.validateBiayaDendaPeriode(productModel.getProductBiayaDendaperiode());
 
         Long count = productRepo.countByName(productModel.getProductName());
         if (count > 0) {

@@ -7,7 +7,8 @@ public class GlobalConstant {
     public static String getRecStatusActive() {
         return REC_STATUS_ACTIVE;
     }
+
     public static String getRecStatusNonActive() {
         return REC_STATUS_NON_ACTIVE;
-    };
+    }
 }

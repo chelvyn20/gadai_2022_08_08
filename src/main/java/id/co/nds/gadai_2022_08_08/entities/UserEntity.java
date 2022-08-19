@@ -15,28 +15,32 @@ import org.hibernate.annotations.GenericGenerator;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingAllByCriteria;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
-import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.deletingById;
+import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.DeletingById;
 
 @Entity
-@Table(name="ms_user")
+@Table(name = "ms_user")
 public class UserEntity {
     @Id
     @GenericGenerator(name = "user_id_seq", strategy = "id.co.nds.gadai_2022_08_08.generators.UserGenerator")
     @GeneratedValue(generator = "user_id_seq")
 
-    @NotBlank(message = "user id is required", groups = {PostingNew.class, GettingAllByCriteria.class, UpdatingById.class, deletingById.class})
+    @NotBlank(message = "user id is required", groups = { PostingNew.class, GettingAllByCriteria.class,
+            UpdatingById.class, DeletingById.class })
     @Column(name = "user_id")
     private String userId;
 
-    @NotBlank(message = "user name is required", groups = {PostingNew.class, GettingAllByCriteria.class, UpdatingById.class})
+    @NotBlank(message = "user name is required", groups = { PostingNew.class, GettingAllByCriteria.class,
+            UpdatingById.class })
     @Column(name = "user_name")
     private String userName;
 
-    @NotBlank(message = "user phone is required", groups = {PostingNew.class, GettingAllByCriteria.class, UpdatingById.class})
+    @NotBlank(message = "user phone is required", groups = { PostingNew.class, GettingAllByCriteria.class,
+            UpdatingById.class })
     @Column(name = "user_phone")
     private String userPhone;
 
-    @NotBlank(message = "user notes is required", groups = {PostingNew.class, GettingAllByCriteria.class, UpdatingById.class})
+    @NotBlank(message = "user notes is required", groups = { PostingNew.class, GettingAllByCriteria.class,
+            UpdatingById.class })
     @Column(name = "user_notes")
     private String userNotes;
 
@@ -66,8 +70,6 @@ public class UserEntity {
 
     @Column(name = "rec_status")
     private String recStatus;
-
-
 
     public String getUserId() {
         return userId;

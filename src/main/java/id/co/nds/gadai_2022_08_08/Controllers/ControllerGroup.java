@@ -1,13 +1,21 @@
- package id.co.nds.gadai_2022_08_08.Controllers;
+package id.co.nds.gadai_2022_08_08.Controllers;
 
 public class ControllerGroup {
-    public interface PostingNew{}
+    public interface PostingNew {
+    }
 
-    public interface GettingAllByCriteria{}
+    public interface GettingAllByCriteria {
+    }
 
-    public interface UpdatingById extends RequestMethodById{}
+    public interface GettingById {
+    }
 
-    public interface deletingById extends RequestMethodById{}
-    
-    public interface RequestMethodById{}
+    public interface UpdatingById extends RequestMethodById {
+    }
+
+    public interface DeletingById extends RequestMethodById {
+    }
+
+    public interface RequestMethodById {
+    }
 }

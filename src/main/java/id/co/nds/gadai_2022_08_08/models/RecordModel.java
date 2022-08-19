@@ -3,7 +3,6 @@ package id.co.nds.gadai_2022_08_08.models;
 public class RecordModel {
     private String actorId;
     private String recStatus;
-    
 
     /**
      * @return Integer return the actorId

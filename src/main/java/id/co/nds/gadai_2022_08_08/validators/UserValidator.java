@@ -1,5 +1,7 @@
 package id.co.nds.gadai_2022_08_08.validators;
 
+// import java.math.BigDecimal;
+
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
 import id.co.nds.gadai_2022_08_08.globals.GlobalConstant;
@@ -42,8 +44,8 @@ public class UserValidator {
     }
 
     public void validateUserId(String userId) throws ClientException {
-        if (userId.trim().equalsIgnoreCase("")) {
-            throw new ClientException("User id must contains 15");
+        if (userId.length() != 15) {
+            throw new ClientException("User id must contains 15 chars");
         }
     }
 
@@ -60,8 +62,14 @@ public class UserValidator {
     }
 
     public void validatePhone(String userNoHP) throws ClientException {
-        if (userNoHP.trim().equalsIgnoreCase("")) {
-            throw new ClientException("User Phone is required");
+        if (userNoHP.length() != 12 || userNoHP.startsWith("08")) {
+            throw new ClientException("User Phone must contains 12 chars and start with 08");
+        }
+    }
+
+    public void validateTxnLimit(Double userTxnLimit) throws ClientException {
+        if (userTxnLimit < 500000.00 || userTxnLimit > 1000000000.00) {
+            throw new ClientException("User Transaction Limit is between 500.000 - 1.000.000");
         }
     }
 

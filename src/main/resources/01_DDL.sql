@@ -141,7 +141,7 @@ CREATE TABLE public.ms_product
     product_id character varying(20) NOT NULL,
     product_type character varying(30) NOT NULL,
     product_name character varying(50) NOT NULL,
-    product_desc character varying(255),
+    product_desc character varying(255) NOT NULL,
     product_ltv numeric(5,2) NOT NULL,
     product_tenor numeric(3) NOT NULL,
     biaya_adm_buka_type character varying(7) NOT NULL,

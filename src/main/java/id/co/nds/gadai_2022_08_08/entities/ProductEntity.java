@@ -2,25 +2,27 @@ package id.co.nds.gadai_2022_08_08.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.sql.Date;
+// import java.sql.Date;
 import java.sql.Timestamp;
 import javax.persistence.Column;
-import javax.persistence.Entity;
+// import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 // import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+// import javax.persistence.Table;
+// import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.Range;
+// import org.hibernate.validator.constraints.Range;
 
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingAllByCriteria;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
-import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.DeletingById;
+// import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.DeletingById;
 
 @Entity
 @Table(name = "ms_product")
@@ -29,6 +31,9 @@ public class ProductEntity {
     @GenericGenerator(name = "product_id_seq", strategy = "id.co.nds.gadai_2022_08_08.generators.ProductGenerator")
     @GeneratedValue(generator = "product_id_seq")
 
+    // @OneToMany(targetEntity = ProductEntity.class, mappedBy = "productId")
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    // private CicTetapEntity cicil;
     @Column(name = "product_id")
     private String productId;
 
@@ -260,5 +265,14 @@ public class ProductEntity {
 
     public void setRecStatus(String recStatus) {
         this.recStatus = recStatus;
+    }
+
+    public ProductEntity(String productId, String productName, String productDesc){
+        this.productId = productId;
+        this.productName = productName;
+        this.productDesc = productDesc;
+    }
+
+    public ProductEntity() {
     }
 }

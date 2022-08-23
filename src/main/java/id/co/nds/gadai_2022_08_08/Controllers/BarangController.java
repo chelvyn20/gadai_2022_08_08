@@ -12,36 +12,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingAllByCriteria;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
+import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
+import id.co.nds.gadai_2022_08_08.entities.InfoBarangEntity;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.DeletingById;
-import id.co.nds.gadai_2022_08_08.entities.UserEntity;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
+import id.co.nds.gadai_2022_08_08.models.BarangModel;
 import id.co.nds.gadai_2022_08_08.models.ResponseModel;
-import id.co.nds.gadai_2022_08_08.models.UserModel;
-import id.co.nds.gadai_2022_08_08.services.UserService;
+import id.co.nds.gadai_2022_08_08.services.BarangService;
 
 @RestController
 @Validated
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/barang")
+public class BarangController {
     @Autowired
-    private UserService userService;
+    private BarangService BarangService;
 
     @PostMapping(value = "/doInsert")
-    public ResponseEntity<ResponseModel> addUserController(
-            @Validated(PostingNew.class) @RequestBody UserModel userModel) {
+    public ResponseEntity<ResponseModel> addBarangController(
+            @Validated(PostingNew.class) @RequestBody BarangModel BarangModel) {
         try {
             // Request
-            UserEntity user = userService.add(userModel);
+            BarangEntity Barang = BarangService.add(BarangModel);
             // Response
             ResponseModel response = new ResponseModel();
-            response.setMsg("New User is Successfully added");
-            response.setData(user);
+            response.setMsg("New Barang is Successfully added");
+            response.setData(Barang);
 
             return ResponseEntity.ok(response);
         } catch (ClientException e) {
@@ -57,15 +59,15 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/doSearchUser")
-    public ResponseEntity<ResponseModel> searchUserController(
-            @Validated(GettingAllByCriteria.class) @RequestBody UserModel userModel) {
+    @GetMapping(value = "/doSearchBarang")
+    public ResponseEntity<ResponseModel> searchBarangController(
+            @Validated(GettingAllByCriteria.class) @RequestBody BarangModel BarangModel) {
         try {
-            List<UserEntity> user = userService.findAllByCriteria(userModel);
+            List<BarangEntity> Barang = BarangService.findAllByCriteria(BarangModel);
             // Respon
             ResponseModel response = new ResponseModel();
             response.setMsg("Request successfully");
-            response.setData(user);
+            response.setData(Barang);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
@@ -75,14 +77,14 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/doGetDetailUser/{userId}")
-    public ResponseEntity<ResponseModel> searchuserController(@PathVariable String userId) {
+    @GetMapping(value = "/doGetDetailBarang/{noTransaksi}")
+    public ResponseEntity<ResponseModel> searchProductController(@PathVariable String noTransaksi) {
         try {
-            UserEntity user = userService.findById(userId);
+            BarangEntity Barang = BarangService.findById(noTransaksi);
             // Respon
             ResponseModel response = new ResponseModel();
             response.setMsg("Request successfully");
-            response.setData(user);
+            response.setData(Barang);
             return ResponseEntity.ok(response);
         } catch (ClientException e) {
             ResponseModel response = new ResponseModel();
@@ -103,14 +105,14 @@ public class UserController {
     }
 
     @PutMapping(value = "/doUpdate")
-    public ResponseEntity<ResponseModel> putuserController(
-            @Validated(UpdatingById.class) @RequestBody UserModel userModel) {
+    public ResponseEntity<ResponseModel> putProductController(
+            @Validated(UpdatingById.class) @RequestBody BarangModel BarangModel) {
         try {
-            UserEntity user = userService.edit(userModel);
+            BarangEntity Barang = BarangService.edit(BarangModel);
             // Respon
             ResponseModel response = new ResponseModel();
             response.setMsg("Request successfully");
-            response.setData(user);
+            response.setData(Barang);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
@@ -121,14 +123,14 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/doDelete")
-    public ResponseEntity<ResponseModel> deleteUserController(
-            @Validated(DeletingById.class) @RequestBody UserModel userModel) {
+    public ResponseEntity<ResponseModel> deleteProductController(
+            @Validated(DeletingById.class) @RequestBody BarangModel BarangModel) {
         try {
-            UserEntity user = userService.delete(userModel);
+            BarangEntity Barang = BarangService.delete(BarangModel);
             // Respon
             ResponseModel response = new ResponseModel();
             response.setMsg("Request successfully");
-            response.setData(user);
+            response.setData(Barang);
             return ResponseEntity.ok(response);
         } catch (ClientException e) {
             ResponseModel response = new ResponseModel();
@@ -143,6 +145,34 @@ public class UserController {
         } catch (Exception e) {
             ResponseModel response = new ResponseModel();
             response.setMsg("Sorry, there is a failure on our server");
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
+    @GetMapping(value = "/get/info")
+    public ResponseEntity<ResponseModel> getAllByCategoryController(
+            @Validated(PostingNew.class) @RequestParam String noTransaksi) {
+        try {
+            List<InfoBarangEntity> products = BarangService.findAllBybarang(noTransaksi);
+            // Respon
+            ResponseModel response = new ResponseModel();
+            response.setMsg("Request successfully");
+            response.setData(products);
+            return ResponseEntity.ok(response);
+        } catch (ClientException e) {
+            ResponseModel response = new ResponseModel();
+            response.setMsg(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(response);
+        } catch (NotFoundException e) {
+            ResponseModel response = new ResponseModel();
+            response.setMsg(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(response);
+        } catch (Exception e) {
+            ResponseModel response = new ResponseModel();
+            response.setMsg(e.getMessage());
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(response);
         }

@@ -20,7 +20,7 @@ public class ProductGenerator implements IdentifierGenerator {
 
             if (rs.next()) {
                 int seq = rs.getInt("seq") + 1;
-                String code = String.format("%015d", seq);
+                String code = String.format("PRD%03d", seq);
                 System.out.println("Generated Stock code : " + code);
                 return code;
             } else {

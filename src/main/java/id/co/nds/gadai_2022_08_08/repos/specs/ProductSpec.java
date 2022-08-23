@@ -8,7 +8,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import id.co.nds.gadai_2022_08_08.entities.ProductEntity;
-import id.co.nds.gadai_2022_08_08.globals.GlobalConstant;
+import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 import id.co.nds.gadai_2022_08_08.models.ProductModel;
 
 public class ProductSpec implements Specification<ProductEntity> {
@@ -40,8 +40,8 @@ public class ProductSpec implements Specification<ProductEntity> {
         }
 
         if (productModel.getProductStatus() != null && (productModel.getProductStatus().trim()
-                .equalsIgnoreCase(GlobalConstant.REC_STATUS_ACTIVE)
-                || productModel.getProductStatus().trim().equalsIgnoreCase(GlobalConstant.REC_STATUS_NON_ACTIVE))) {
+                .equalsIgnoreCase(GlobalConstanst.REC_STATUS_ACTIVE)
+                || productModel.getProductStatus().trim().equalsIgnoreCase(GlobalConstanst.REC_STATUS_NON_ACTIVE))) {
             p.getExpressions()
                     .add(cb.equal(cb.upper(root.get("recStatus")), productModel.getProductStatus().toUpperCase()));
         }

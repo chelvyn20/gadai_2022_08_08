@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import id.co.nds.gadai_2022_08_08.entities.UserEntity;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
-import id.co.nds.gadai_2022_08_08.globals.GlobalConstant;
+import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 import id.co.nds.gadai_2022_08_08.models.UserModel;
 import id.co.nds.gadai_2022_08_08.repos.UserRepo;
 import id.co.nds.gadai_2022_08_08.repos.specs.UserSpec;
@@ -49,7 +49,7 @@ public class UserService implements Serializable {
         user.setRegisterDate(userModel.getUserRegData());
         user.setCreatedBy(userModel.getActorId());
         user.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-        user.setRecStatus(GlobalConstant.REC_STATUS_ACTIVE);
+        user.setRecStatus(GlobalConstanst.REC_STATUS_ACTIVE);
 
         return userRepo.save(user);
     }
@@ -115,11 +115,11 @@ public class UserService implements Serializable {
         // proses
         UserEntity user = new UserEntity();
         user = findById(userModel.getUserId());
-        if (user.getRecStatus().equalsIgnoreCase(GlobalConstant.REC_STATUS_NON_ACTIVE)) {
+        if (user.getRecStatus().equalsIgnoreCase(GlobalConstanst.REC_STATUS_NON_ACTIVE)) {
             throw new ClientException("user id ( " + userModel.getUserId() + " ) is already been deleted.");
         }
 
-        user.setRecStatus(GlobalConstant.REC_STATUS_NON_ACTIVE);
+        user.setRecStatus(GlobalConstanst.REC_STATUS_NON_ACTIVE);
         user.setDeletedDate(new Timestamp(System.currentTimeMillis()));
         user.setDeletedBy(userModel.getActorId());
 

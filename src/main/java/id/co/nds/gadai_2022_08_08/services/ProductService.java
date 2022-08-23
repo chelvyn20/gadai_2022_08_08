@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import id.co.nds.gadai_2022_08_08.entities.ProductEntity;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
-import id.co.nds.gadai_2022_08_08.globals.GlobalConstant;
+import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 import id.co.nds.gadai_2022_08_08.models.ProductModel;
 import id.co.nds.gadai_2022_08_08.repos.ProductRepo;
 import id.co.nds.gadai_2022_08_08.repos.specs.ProductSpec;
@@ -56,7 +56,7 @@ public class ProductService implements Serializable {
         product.setBiayaDendaKeterlambatanrate(productModel.getProductBiayaDenda().doubleValue());
         product.setBiayaDendaKeterlambatanPer(productModel.getProductBiayaDendaperiode());
         product.setCreatedBy(productModel.getActorId());
-        product.setRecStatus(GlobalConstant.REC_STATUS_ACTIVE);
+        product.setRecStatus(GlobalConstanst.REC_STATUS_ACTIVE);
         product.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 
         return productRepo.save(product);
@@ -158,11 +158,11 @@ public class ProductService implements Serializable {
         // proses
         ProductEntity Product = new ProductEntity();
         Product = findById(ProductModel.getProductId());
-        if (Product.getRecStatus().equalsIgnoreCase(GlobalConstant.REC_STATUS_NON_ACTIVE)) {
+        if (Product.getRecStatus().equalsIgnoreCase(GlobalConstanst.REC_STATUS_NON_ACTIVE)) {
             throw new ClientException("Product id ( " + ProductModel.getProductId() + " ) is already been deleted.");
         }
 
-        Product.setRecStatus(GlobalConstant.REC_STATUS_NON_ACTIVE);
+        Product.setRecStatus(GlobalConstanst.REC_STATUS_NON_ACTIVE);
         Product.setDeletedDate(new Timestamp(System.currentTimeMillis()));
         Product.setDeletedBy(ProductModel.getActorId());
 

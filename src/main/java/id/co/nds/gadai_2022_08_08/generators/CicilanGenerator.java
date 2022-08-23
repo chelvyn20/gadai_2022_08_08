@@ -9,18 +9,20 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
-public class UserGenerator implements IdentifierGenerator {
+public class CicilanGenerator implements IdentifierGenerator {
+
     @Override
     public Serializable generate(SharedSessionContractImplementor ssci, Object o) throws HibernateException {
         // TODO Auto-generated method stub
         Connection connection = ssci.connection();
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS seq FROM ms_user");
+            PreparedStatement ps = connection
+                    .prepareStatement("SELECT COUNT(*) AS seq FROM \"TX_CICILAN\" ");
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 int seq = rs.getInt("seq") + 1;
-                String code = String.format("ID%05d", seq);
+                String code = String.format("TX%05d", seq);
                 System.out.println("Generated Stock code : " + code);
                 return code;
             } else {
@@ -31,4 +33,5 @@ public class UserGenerator implements IdentifierGenerator {
         }
         return null;
     }
+
 }

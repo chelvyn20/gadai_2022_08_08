@@ -2,7 +2,7 @@ package id.co.nds.gadai_2022_08_08.validators;
 
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
-import id.co.nds.gadai_2022_08_08.globals.GlobalConstant;
+import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 
 public class ProductValidator {
     public void nullCheckId(String productId) throws ClientException {
@@ -54,7 +54,7 @@ public class ProductValidator {
     }
 
     public void validateRecStatus(String productId, String userStatus) throws ClientException {
-        if (userStatus.equalsIgnoreCase(GlobalConstant.REC_STATUS_NON_ACTIVE)) {
+        if (userStatus.equalsIgnoreCase(GlobalConstanst.REC_STATUS_NON_ACTIVE)) {
             throw new ClientException("Product with id = " + productId + "is already been deleted");
         }
     }

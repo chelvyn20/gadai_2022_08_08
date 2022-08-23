@@ -25,8 +25,8 @@ public class CustomerSpec implements Specification<CustomerEntity> {
 
         // KTP
         if (customerModel.getCustKtp() != null) {
-            p.getExpressions().add(cb.equal(root.get("custKtp"),
-                    customerModel.getCustKtp()));
+            p.getExpressions().add(cb.like(cb.lower(root.get("custKtp")),
+                    "%" + customerModel.getCustKtp().toLowerCase() + "%"));
         }
 
         // Nama Pelanggan
@@ -37,8 +37,8 @@ public class CustomerSpec implements Specification<CustomerEntity> {
 
         // ID Customer
         if (customerModel.getCustId() != null) {
-            p.getExpressions()
-                    .add(cb.equal(cb.lower(root.get("custId")), customerModel.getCustId().toLowerCase()));
+            p.getExpressions().add(cb.like(cb.lower(root.get("custId")),
+                    "%" + customerModel.getCustId().toLowerCase() + "%"));
         }
 
         // Status
@@ -49,7 +49,8 @@ public class CustomerSpec implements Specification<CustomerEntity> {
 
         // Nomor HP
         if (customerModel.getCustHp() != null) {
-            p.getExpressions().add(cb.equal(root.get("custHp"), customerModel.getCustHp()));
+            p.getExpressions().add(cb.like(cb.lower(root.get("custHp")),
+                    "%" + customerModel.getCustHp().toLowerCase() + "%"));
         }
 
         // Jenis Usaha

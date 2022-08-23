@@ -7,9 +7,9 @@ public class ControllerGroup {
 
     public interface GettingById {}
 
-    public interface UpdatingById extends RequestMethodById {}
+    public interface UpdatingById {}
 
-    public interface DeletingById extends RequestMethodById {}
+    public interface DeletingById {}
 
-    public interface RequestMethodById {}
+    public interface ProcessData {}
 }

@@ -1,12 +1,12 @@
 package id.co.nds.gadai_2022_08_08.domains;
 
 import java.io.Serializable;
-import java.util.Objects;
+// import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+// import javax.persistence.Embeddable;
 
-@Embeddable
+// @Embeddable
 public class noTransaksi implements Serializable{
     @Column(name = "no_transaksi")
     private String noTransaksi;
@@ -37,20 +37,6 @@ public class noTransaksi implements Serializable{
 
     public void setCicilanKe(Integer cicilanKe) {
         this.cicilanKe = cicilanKe;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        noTransaksi that = (noTransaksi) o;
-        return noTransaksi.equals(that.noTransaksi) &&
-                cicilanKe.equals(that.cicilanKe);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(noTransaksi, cicilanKe);
     }
     
 

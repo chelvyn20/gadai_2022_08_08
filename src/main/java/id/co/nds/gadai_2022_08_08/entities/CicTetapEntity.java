@@ -1,5 +1,6 @@
 package id.co.nds.gadai_2022_08_08.entities;
 
+import java.io.Serializable;
 // import java.math.Double;
 // import java.math.Double;
 import java.sql.Date;
@@ -11,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,16 +28,18 @@ import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
 
 @Entity
 @Table(name = "\"TX_TRANSAKSI_CICILAN_TETAP\"")
-public class CicTetapEntity {
-    @Id
-    @GenericGenerator(name = "cicilanTetap_id_seq", strategy = "id.co.nds.catalogue.generators.CicilantetapGenerator")
-    @GeneratedValue(generator = "cicilantetap_id_seq")
+public class CicTetapEntity implements Serializable{
+    
+    // @GenericGenerator(name = "cicilanTetap_id_seq", strategy = "id.co.nds.catalogue.generators.CicilantetapGenerator")
+    // @GeneratedValue(generator = "cicilantetap_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @JsonManagedReference
-
+    @Id
     @Column(name = "no_transaksi")
     private String noTransaksi;
 
+    @Id
     @Column(name = "total_nilai_tak")
     private Double totalNilaiTak;
 
@@ -266,11 +270,5 @@ public class CicTetapEntity {
         this.CicilanList = CicilanList;
     }
 
-    public static CicTetapEntity doGetDetailCicTetap(CicTetapModel cicTetapModel) {
-        return null;
-    }
-
-    public static CicTetapEntity findDetail(String noTransaksi2) {
-        return null;
-    }
+  
 }

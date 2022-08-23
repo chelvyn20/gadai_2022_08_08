@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
@@ -25,8 +26,9 @@ import id.co.nds.gadai_2022_08_08.domains.noTransaksi;
 @Table(name = "\"TX_CICILAN\"")
 public class CicilanEntity implements Serializable {
     @Id
-    @GenericGenerator(name = "cicil_id_seq", strategy = "id.co.nds.catalogue.generators.CicilanGenerator")
-    @GeneratedValue(generator = "cicil_id_seq")
+    // @GenericGenerator(name = "cicil_id_seq", strategy = "id.co.nds.catalogue.generators.CicilanGenerator")
+    // @GeneratedValue(generator = "cicil_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @JoinColumn(name = "no_transaksi", referencedColumnName = "no_transaksi")
     @Column(name = "no_transaksi")

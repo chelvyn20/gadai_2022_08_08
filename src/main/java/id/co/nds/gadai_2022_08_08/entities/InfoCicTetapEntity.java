@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 // import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "TX_TRANSAKSI_CICILAN_TETAP")
+@Table(name = "\"TX_TRANSAKSI_CICILAN_TETAP\"")
 public class InfoCicTetapEntity {
     @Id
     @GenericGenerator(name = "cicilanTetap_id_seq", strategy = "id.co.nds.catalogue.generators.CicilantetapGenerator")

@@ -3,6 +3,7 @@ package id.co.nds.gadai_2022_08_08.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
@@ -13,11 +14,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "TX_TRANSAKSI_BARANG")
+@Table(name = "\"TX_TRANSAKSI_BARANG\"")
 public class InfoBarangEntity {
     @Id
-    @GenericGenerator(name = "barang_id_seq", strategy = "id.co.nds.catalogue.generators.BarangGenerator")
-    @GeneratedValue(generator = "barang_id_seq")
+    // @GenericGenerator(name = "barang_id_seq", strategy = "id.co.nds.catalogue.generators.BarangGenerator")
+    // @GeneratedValue(generator = "barang_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(name = "no_transaksi")
     private String noTransaksi; 

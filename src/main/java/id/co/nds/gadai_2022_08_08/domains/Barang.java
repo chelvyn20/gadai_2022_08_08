@@ -12,4 +12,20 @@ public class Barang implements Serializable{
     }
 
     public Barang() {}
+
+    public String getNoTransaksi() {
+        return noTransaksi;
+    }
+
+    public void setNoTransaksi(String noTransaksi) {
+        this.noTransaksi = noTransaksi;
+    }
+
+    public Integer getNoUrut() {
+        return noUrut;
+    }
+
+    public void setNoUrut(Integer noUrut) {
+        this.noUrut = noUrut;
+    }
 }

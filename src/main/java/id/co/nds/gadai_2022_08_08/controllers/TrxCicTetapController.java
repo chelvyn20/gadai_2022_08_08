@@ -1,5 +1,7 @@
 package id.co.nds.gadai_2022_08_08.controllers;
 
+import java.text.ParseException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import id.co.nds.gadai_2022_08_08.controllers.ControllerGroup.GettingAllByCriteria;
+import id.co.nds.gadai_2022_08_08.controllers.ControllerGroup.GettingById;
 import id.co.nds.gadai_2022_08_08.controllers.ControllerGroup.PostingNew;
+import id.co.nds.gadai_2022_08_08.controllers.ControllerGroup.ProcessData;
 import id.co.nds.gadai_2022_08_08.entities.TrxCicTetapEntity;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.models.ResponseModel;
@@ -25,7 +30,7 @@ public class TrxCicTetapController {
     TrxCicTetapService trxCicTetapService;
 
     @GetMapping(value="/get/search")
-    public ResponseEntity<ResponseModel> doSearchTransCicTetap(@RequestBody TrxCicTetapModel trxCicTetapModel) {
+    public ResponseEntity<ResponseModel> doSearchTransCicTetap(@Validated(GettingAllByCriteria.class) @RequestBody TrxCicTetapModel trxCicTetapModel) throws ParseException, ClientException {
         TrxCicTetapEntity[] trx = trxCicTetapService.doSearchTransCicTetap(trxCicTetapModel);
 
         ResponseModel response = new ResponseModel();
@@ -35,7 +40,7 @@ public class TrxCicTetapController {
     }
 
     @GetMapping(value="/get/detail")
-    public ResponseEntity<ResponseModel> doGetDetailCicTetap(@RequestBody TrxCicTetapModel trxCicTetapModel) {
+    public ResponseEntity<ResponseModel> doGetDetailCicTetap(@Validated(GettingById.class) @RequestBody TrxCicTetapModel trxCicTetapModel) {
         TrxCicTetapEntity trx = trxCicTetapService.doGetDetailCicTetap(trxCicTetapModel);
 
         ResponseModel response = new ResponseModel();
@@ -45,7 +50,7 @@ public class TrxCicTetapController {
     }
 
     @GetMapping(value="/get/customer")
-    public ResponseEntity<ResponseModel> doSearchPelanggan(@RequestBody TrxCicTetapModel trxCicTetapModel) {
+    public ResponseEntity<ResponseModel> doSearchPelanggan(@Validated(GettingAllByCriteria.class) @RequestBody TrxCicTetapModel trxCicTetapModel) {
         CustomerTransaction[] customers = trxCicTetapService.doSearchPelanggan(trxCicTetapModel);
 
         ResponseModel response = new ResponseModel();
@@ -55,7 +60,7 @@ public class TrxCicTetapController {
     }
 
     @GetMapping(value="/get/product")
-    public ResponseEntity<ResponseModel> doGetListProduk(@RequestBody TrxCicTetapModel trxCicTetapModel) throws ClientException {
+    public ResponseEntity<ResponseModel> doGetListProduk(@Validated(GettingAllByCriteria.class) @RequestBody TrxCicTetapModel trxCicTetapModel) throws ClientException {
         ProductTransaction[] products = trxCicTetapService.doGetListProduk(trxCicTetapModel);
 
         ResponseModel response = new ResponseModel();
@@ -65,7 +70,7 @@ public class TrxCicTetapController {
     }
 
     @GetMapping(value="/get/calculate")
-    public ResponseEntity<ResponseModel> doHitungTrxCicTetap(@RequestBody TrxCicTetapModel trxCicTetapModel) {
+    public ResponseEntity<ResponseModel> doHitungTrxCicTetap(@Validated(ProcessData.class) @RequestBody TrxCicTetapModel trxCicTetapModel) {
         TrxCicTetapEntity trx = trxCicTetapService.doHitungTrxCicTetap(trxCicTetapModel);
         
         ResponseModel response = new ResponseModel();

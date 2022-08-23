@@ -21,7 +21,6 @@ public class UserSpec implements Specification<UserEntity>{
 
     @Override
     public Predicate toPredicate(Root<UserEntity> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        // TODO Auto-generated method stub
         Predicate p = cb.and();
 
         if (userModel.getUserId() != null && userModel.getUserId().length() > 0){
@@ -40,8 +39,8 @@ public class UserSpec implements Specification<UserEntity>{
             p.getExpressions().add(cb.equal(cb.upper(root.get("recStatus")), userModel.getUserStatus().toUpperCase()));
         }
 
-        if (userModel.getUserNoHP() != null && userModel.getUserNoHP().length() > 0){
-            p.getExpressions().add(cb.like(cb.lower(root.get("userPhone")), "%" + userModel.getUserNoHP().toLowerCase() + "%"));
+        if (userModel.getUserHp() != null && userModel.getUserHp().length() > 0){
+            p.getExpressions().add(cb.like(cb.lower(root.get("userPhone")), "%" + userModel.getUserHp().toLowerCase() + "%"));
         }
         
         if (userModel.getActorId() != null && userModel.getActorId().length() > 0){

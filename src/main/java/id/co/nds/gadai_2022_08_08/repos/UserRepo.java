@@ -14,7 +14,7 @@ import id.co.nds.gadai_2022_08_08.globals.GlobalConstant;
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, String>, JpaSpecificationExecutor<UserEntity> {
     @Query(value = "SELECT COUNT(*) from ms_user WHERE rec_status = '"
-            + GlobalConstant.REC_STATUS_ACTIVE + "' AND LOWER(user_name) = LOWER(:userName) ", nativeQuery = true)
-    long countByName(@Param("userName") String userName);
+            + GlobalConstant.REC_STATUS_ACTIVE + "' AND LOWER(user_phone) = LOWER(:user_phone)", nativeQuery = true)
+    long countByPhone(@Param("user_phone") String userPhone);
 
 }

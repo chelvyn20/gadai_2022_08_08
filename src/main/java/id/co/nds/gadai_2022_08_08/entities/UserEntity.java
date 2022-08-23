@@ -4,55 +4,25 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.Range;
-
-import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingAllByCriteria;
-import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;
-import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
-import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.DeletingById;
 
 @Entity
 @Table(name = "ms_user")
 public class UserEntity {
     @Id
-    @GenericGenerator(name = "user_id_seq", strategy = "id.co.nds.gadai_2022_08_08.generators.UserGenerator")
-    @GeneratedValue(generator = "user_id_seq")
-
-    @NotBlank(message = "user id is required", groups = { PostingNew.class, GettingAllByCriteria.class,
-            UpdatingById.class, DeletingById.class })
     @Column(name = "user_id")
     private String userId;
 
-    @NotBlank(message = "user name is required", groups = { PostingNew.class, GettingAllByCriteria.class,
-            UpdatingById.class })
     @Column(name = "user_name")
     private String userName;
 
-    // @NotBlank(message = "user phone is required", groups = { PostingNew.class,
-    // GettingAllByCriteria.class,
-    // UpdatingById.class })
-    @Pattern(regexp = "^08[0-9]{7,10}$", message = "User phone starts with 08 and contains 9-12 chars", groups = {
-            PostingNew.class, UpdatingById.class, GettingAllByCriteria.class })
     @Column(name = "user_phone")
     private String userPhone;
 
-    @NotBlank(message = "user notes is required", groups = { PostingNew.class, GettingAllByCriteria.class,
-            UpdatingById.class })
     @Column(name = "user_notes")
     private String userNotes;
 
-    @NotNull(message = "User transaction limit is required", groups = { PostingNew.class })
-    @Range(min = 500000, max = 1000000000L, message = "User transaction limit is between 500.000 to 1.000.000.000", groups = {
-            PostingNew.class, UpdatingById.class })
     @Column(name = "max_limit")
     private Double maxLimit;
 

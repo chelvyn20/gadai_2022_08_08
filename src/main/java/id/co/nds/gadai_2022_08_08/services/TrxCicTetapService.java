@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.NoSuchElementException;
@@ -19,11 +21,13 @@ import id.co.nds.gadai_2022_08_08.entities.ProductEntity;
 import id.co.nds.gadai_2022_08_08.entities.TrxBarangEntity;
 import id.co.nds.gadai_2022_08_08.entities.TrxCicTetapEntity;
 import id.co.nds.gadai_2022_08_08.entities.TrxCicilanEntity;
+import id.co.nds.gadai_2022_08_08.entities.UserEntity;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.globals.GlobalConstant;
 import id.co.nds.gadai_2022_08_08.models.CustomerModel;
 import id.co.nds.gadai_2022_08_08.models.ProductModel;
 import id.co.nds.gadai_2022_08_08.models.TrxCicTetapModel;
+import id.co.nds.gadai_2022_08_08.models.UserModel;
 import id.co.nds.gadai_2022_08_08.objects.CustomerTransaction;
 import id.co.nds.gadai_2022_08_08.objects.ProductTransaction;
 import id.co.nds.gadai_2022_08_08.objects.SearchTransaksiObject;
@@ -49,7 +53,14 @@ public class TrxCicTetapService implements Serializable {
     @Autowired
     ProductService productService;
 
-    public SearchTransaksiObject[] doSearchTransCicTetap(TrxCicTetapModel trxCicTetapModel) {
+    @Autowired
+    UserService userService;
+
+    public SearchTransaksiObject[] doSearchTransCicTetap(TrxCicTetapModel trxCicTetapModel) throws ParseException, ClientException {
+        if(new SimpleDateFormat("yyyy-MM-dd").parse(trxCicTetapModel.getTrxDateBegin()).compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(trxCicTetapModel.getTrxDateEnd())) > 0) {
+            throw new ClientException("Date Start can't be higher than Date End");
+        }
+        
         ArrayList<TrxCicTetapEntity> trx = new ArrayList<>();
         TrxCicTetapSpec spec = new TrxCicTetapSpec(trxCicTetapModel);
         trxCicTetapRepo.findAll(spec).forEach(trx::add);
@@ -187,7 +198,7 @@ public class TrxCicTetapService implements Serializable {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {Exception.class})
     public TrxCicTetapEntity doSaveTrxCicTetap(TrxCicTetapModel trxCicTetapModel) throws ClientException {
-        if(trxCicTetapModel.getDaftarBarangGadai().length == 0) {
+        if(trxCicTetapModel.getDaftarBarangGadai() == null || trxCicTetapModel.getDaftarBarangGadai().length == 0) {
             throw new ClientException("Barang Gadai is required");
         }
 
@@ -199,6 +210,16 @@ public class TrxCicTetapService implements Serializable {
 
         if(trxCicTetapModel.getNilaiPencairanPelanggan().doubleValue() > customer.getCustLimitTxn().doubleValue()) {
             throw new ClientException("Nilai Pencairan Pelanggan can't be higher than Customer's maximum transaction limit");
+        }
+
+        UserModel userModel = new UserModel();
+        userModel.setUserId(trxCicTetapModel.getActorId());
+        userModel.setActorId(trxCicTetapModel.getActorId());
+
+        UserEntity user = userService.findById(userModel);
+
+        if(trxCicTetapModel.getNilaiPencairanPelanggan().doubleValue() > user.getMaxLimit()) {
+            throw new ClientException("Nilai Pencairan Pelanggan can't be higher than User's maximum transaction limit");
         }
 
         TrxCicTetapEntity trx = new TrxCicTetapEntity();

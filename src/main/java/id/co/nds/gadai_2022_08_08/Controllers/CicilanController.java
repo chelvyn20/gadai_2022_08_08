@@ -59,95 +59,95 @@ public class CicilanController {
         }
     }
 
-    @GetMapping(value = "/doSearchCicilan")
-    public ResponseEntity<ResponseModel> searchCicilanController(
-            @Validated(GettingAllByCriteria.class) @RequestBody CicilanModel CicilanModel) {
-        try {
-            List<CicilanEntity> Cicilan = CicilanService.findAllByCriteria(CicilanModel);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(Cicilan);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @GetMapping(value = "/doSearchCicilan")
+    // public ResponseEntity<ResponseModel> searchCicilanController(
+    //         @Validated(GettingAllByCriteria.class) @RequestBody CicilanModel CicilanModel) {
+    //     try {
+    //         List<CicilanEntity> Cicilan = CicilanService.findAllByCriteria(CicilanModel);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(Cicilan);
+    //         return ResponseEntity.ok(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Sorry, there is a failure on our server.");
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 
-    @GetMapping(value = "/doGetDetailCicilan/{noTransaksi}")
-    public ResponseEntity<ResponseModel> searchProductController(@PathVariable String noTransaksi) {
-        try {
-            CicilanEntity Cicilan = CicilanService.findById(noTransaksi);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(Cicilan);
-            return ResponseEntity.ok(response);
-        } catch (ClientException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (NotFoundException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @GetMapping(value = "/doGetDetailCicilan/{noTransaksi}")
+    // public ResponseEntity<ResponseModel> searchProductController(@PathVariable String noTransaksi) {
+    //     try {
+    //         CicilanEntity Cicilan = CicilanService.findById(noTransaksi);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(Cicilan);
+    //         return ResponseEntity.ok(response);
+    //     } catch (ClientException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (NotFoundException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 
-    @PutMapping(value = "/doUpdate")
-    public ResponseEntity<ResponseModel> putProductController(
-            @Validated(UpdatingById.class) @RequestBody CicilanModel CicilanModel) {
-        try {
-            CicilanEntity Cicilan = CicilanService.edit(CicilanModel);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(Cicilan);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @PutMapping(value = "/doUpdate")
+    // public ResponseEntity<ResponseModel> putProductController(
+    //         @Validated(UpdatingById.class) @RequestBody CicilanModel CicilanModel) {
+    //     try {
+    //         CicilanEntity Cicilan = CicilanService.edit(CicilanModel);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(Cicilan);
+    //         return ResponseEntity.ok(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Sorry, there is a failure on our server.");
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 
-    @DeleteMapping(value = "/doDelete")
-    public ResponseEntity<ResponseModel> deleteProductController(
-            @Validated(DeletingById.class) @RequestBody CicilanModel CicilanModel) {
-        try {
-            CicilanEntity Cicilan = CicilanService.delete(CicilanModel);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(Cicilan);
-            return ResponseEntity.ok(response);
-        } catch (ClientException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (NotFoundException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server");
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @DeleteMapping(value = "/doDelete")
+    // public ResponseEntity<ResponseModel> deleteProductController(
+    //         @Validated(DeletingById.class) @RequestBody CicilanModel CicilanModel) {
+    //     try {
+    //         CicilanEntity Cicilan = CicilanService.delete(CicilanModel);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(Cicilan);
+    //         return ResponseEntity.ok(response);
+    //     } catch (ClientException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (NotFoundException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Sorry, there is a failure on our server");
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 
 }

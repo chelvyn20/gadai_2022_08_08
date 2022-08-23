@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "\"TX_TRANSAKSI_BARANG\"")
 public class BarangEntity implements Serializable{
-    
+    @Id
     // @GenericGenerator(name = "barang_id_seq", strategy = "id.co.nds.catalogue.generators.BarangGenerator")
     // @GeneratedValue(generator = "barang_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +27,11 @@ public class BarangEntity implements Serializable{
     
     @JsonManagedReference
     @JoinColumn(name = "no_transaksi", referencedColumnName = "no_transaksi")
-    @Id
+   
     @Column(name = "no_transaksi")
     private String noTransaksi;
 
-    @Id
+    // @Id
     @Column(name = "no_urut")
     private Integer noUrut;
 

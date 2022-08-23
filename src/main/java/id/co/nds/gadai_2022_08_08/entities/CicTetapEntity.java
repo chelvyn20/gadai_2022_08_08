@@ -29,17 +29,16 @@ import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
 @Entity
 @Table(name = "\"TX_TRANSAKSI_CICILAN_TETAP\"")
 public class CicTetapEntity implements Serializable{
-    
+    @Id
     // @GenericGenerator(name = "cicilanTetap_id_seq", strategy = "id.co.nds.catalogue.generators.CicilantetapGenerator")
     // @GeneratedValue(generator = "cicilantetap_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @JsonManagedReference
-    @Id
     @Column(name = "no_transaksi")
     private String noTransaksi;
 
-    @Id
+    // @Id
     @Column(name = "total_nilai_tak")
     private Double totalNilaiTak;
 

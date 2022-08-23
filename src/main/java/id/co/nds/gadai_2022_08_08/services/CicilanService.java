@@ -51,80 +51,80 @@ public class CicilanService implements Serializable {
         return CicilanRepo.save(Cicilan);
     }
 
-    public List<CicilanEntity> findAllByCriteria(CicilanModel CicilanModel) {
-        List<CicilanEntity> Cicilan = new ArrayList<>();
-        CicilanSpec spec = new CicilanSpec(CicilanModel);
-        CicilanRepo.findAll(spec).forEach(Cicilan::add);
-        return Cicilan;
-    }
+    // public List<CicilanEntity> findAllByCriteria(CicilanModel CicilanModel) {
+    //     List<CicilanEntity> Cicilan = new ArrayList<>();
+    //     CicilanSpec spec = new CicilanSpec(CicilanModel);
+    //     CicilanRepo.findAll(spec).forEach(Cicilan::add);
+    //     return Cicilan;
+    // }
 
-    public CicilanEntity findById(String noTransaksi) throws ClientException, NotFoundException {
-        // CicilanValidator.nullCheckNoTransaksi(noTransaksi);
-        // CicilanValidator.validateNotransaksi(noTransaksi);
+    // public CicilanEntity findById(String noTransaksi) throws ClientException, NotFoundException {
+    //     // CicilanValidator.nullCheckNoTransaksi(noTransaksi);
+    //     // CicilanValidator.validateNotransaksi(noTransaksi);
 
-        CicilanEntity Cicilan = CicilanRepo.findById(noTransaksi).orElse(null);
-        // CicilanValidator.nullCheckObject(Cicilan);
-        return Cicilan;
-    }
+    //     CicilanEntity Cicilan = CicilanRepo.findById(noTransaksi).orElse(null);
+    //     // CicilanValidator.nullCheckObject(Cicilan);
+    //     return Cicilan;
+    // }
 
-    public CicilanEntity edit(CicilanModel CicilanModel) throws ClientException, NotFoundException {
-        // CicilanValidator.nullCheckNoTransaksi(CicilanModel.getNoTransaksi());
-        // CicilanValidator.validateNotransaksi(CicilanModel.getNoTransaksi());
-        if (!CicilanRepo.existsById(CicilanModel.getNoTransaksi())) {
-            throw new NotFoundException("Cannot find Cicilan with no transaksi = " + CicilanModel.getNoTransaksi());
-        }
+    // public CicilanEntity edit(CicilanModel CicilanModel) throws ClientException, NotFoundException {
+    //     // CicilanValidator.nullCheckNoTransaksi(CicilanModel.getNoTransaksi());
+    //     // CicilanValidator.validateNotransaksi(CicilanModel.getNoTransaksi());
+    //     if (!CicilanRepo.existsById(CicilanModel.getNoTransaksi())) {
+    //         throw new NotFoundException("Cannot find Cicilan with no transaksi = " + CicilanModel.getNoTransaksi());
+    //     }
 
-        CicilanEntity Cicilan = new CicilanEntity();
-        Cicilan = findById(CicilanModel.getNoTransaksi());
+    //     CicilanEntity Cicilan = new CicilanEntity();
+    //     Cicilan = findById(CicilanModel.getNoTransaksi());
 
-        if (CicilanModel.getCicilanKe() != null) {
-            // CicilanValidator.validateName(CicilanModel.getNamaCicilan());
-            Cicilan.setCicilanKe(CicilanModel.getCicilanKe());
-        }
+    //     if (CicilanModel.getCicilanKe() != null) {
+    //         // CicilanValidator.validateName(CicilanModel.getNamaCicilan());
+    //         Cicilan.setCicilanKe(CicilanModel.getCicilanKe());
+    //     }
 
-        if (CicilanModel.getTxPokok() != null) {
-            // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
-            Cicilan.setTxPokok(CicilanModel.getTxPokok());
-        }
+    //     if (CicilanModel.getTxPokok() != null) {
+    //         // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
+    //         Cicilan.setTxPokok(CicilanModel.getTxPokok());
+    //     }
 
-        if (CicilanModel.getTxBunga() != null) {
-            // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
-            Cicilan.setTxBunga(CicilanModel.getTxBunga());
-        }
+    //     if (CicilanModel.getTxBunga() != null) {
+    //         // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
+    //         Cicilan.setTxBunga(CicilanModel.getTxBunga());
+    //     }
 
-        if (CicilanModel.getTxStatus() != null) {
-            // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
-            Cicilan.setTxStatus(CicilanModel.getTxStatus());
-        }
-        if (CicilanModel.getTanggalAktif() != null) {
-            // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
-            Cicilan.setTanggalAktif(CicilanModel.getTanggalAktif());
-        }
-        if (CicilanModel.getTanggalJatuhTempo() != null) {
-            // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
-            Cicilan.setTanggalJatuhTempo(CicilanModel.getTanggalJatuhTempo());
-        }
-        if (CicilanModel.getTanggalBayar() != null) {
-            // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
-            Cicilan.setTanggalBayar(CicilanModel.getTanggalBayar());
-        }
+    //     if (CicilanModel.getTxStatus() != null) {
+    //         // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
+    //         Cicilan.setTxStatus(CicilanModel.getTxStatus());
+    //     }
+    //     if (CicilanModel.getTanggalAktif() != null) {
+    //         // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
+    //         Cicilan.setTanggalAktif(CicilanModel.getTanggalAktif());
+    //     }
+    //     if (CicilanModel.getTanggalJatuhTempo() != null) {
+    //         // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
+    //         Cicilan.setTanggalJatuhTempo(CicilanModel.getTanggalJatuhTempo());
+    //     }
+    //     if (CicilanModel.getTanggalBayar() != null) {
+    //         // CicilanValidator.validateKondisi(CicilanModel.getKondisi());
+    //         Cicilan.setTanggalBayar(CicilanModel.getTanggalBayar());
+    //     }
 
 
-        return CicilanRepo.save(Cicilan);
-    }
+    //     return CicilanRepo.save(Cicilan);
+    // }
 
-    public CicilanEntity delete(CicilanModel CicilanModel) throws ClientException, NotFoundException {
+    // public CicilanEntity delete(CicilanModel CicilanModel) throws ClientException, NotFoundException {
         
-        if (!CicilanRepo.existsById(CicilanModel.getNoTransaksi())) {
-            throw new NotFoundException("Cannot find Cicilan with no transaksi : " + CicilanModel.getNoTransaksi());
-        }
+    //     if (!CicilanRepo.existsById(CicilanModel.getNoTransaksi())) {
+    //         throw new NotFoundException("Cannot find Cicilan with no transaksi : " + CicilanModel.getNoTransaksi());
+    //     }
 
-        // proses
-        CicilanEntity Cicilan = new CicilanEntity();
-        Cicilan = findById(CicilanModel.getNoTransaksi());
+    //     // proses
+    //     CicilanEntity Cicilan = new CicilanEntity();
+    //     Cicilan = findById(CicilanModel.getNoTransaksi());
         
-        return CicilanRepo.save(Cicilan);
-    }
+    //     return CicilanRepo.save(Cicilan);
+    // }
 
     // public List<InfoCicilanEntity> findAllByCicilan(String noTransaksi) throws ClientException, NotFoundException{
     //     CicilanValidator.nullCheckNoTransaksi(noTransaksi);

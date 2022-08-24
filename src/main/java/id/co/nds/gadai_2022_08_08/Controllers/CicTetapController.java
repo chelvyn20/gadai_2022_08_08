@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingAllByCriteria;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
+import id.co.nds.gadai_2022_08_08.domains.CicTetapObject;
+import id.co.nds.gadai_2022_08_08.domains.CustNewObject;
+import id.co.nds.gadai_2022_08_08.domains.ProdNewObject;
 import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicTetapEntity;
 import id.co.nds.gadai_2022_08_08.entities.CustomerEntity;
@@ -45,7 +48,7 @@ public class CicTetapController {
     @GetMapping(value = "/getPelanggan")
     public ResponseEntity<ResponseModel> doSearchPelanggan(
             @Validated(GettingAllByCriteria.class) @RequestBody CicTetapModel cicTetapModel) {
-        CustomerEntity[] customers = cicTetapService.doSearchPelanggan(cicTetapModel);
+        CustNewObject[] customers = cicTetapService.doSearchPelanggan(cicTetapModel);
 
         ResponseModel response = new ResponseModel();
         response.setMsg("Request successful");
@@ -66,7 +69,7 @@ public class CicTetapController {
     @GetMapping(value = "/findDetail")
     public ResponseEntity<ResponseModel> searchTrasactionController(@RequestBody CicTetapModel cicTetapModel) {
         try {
-            ProductEntity[] Product = cicTetapService.doGetListProduct(cicTetapModel);
+            ProdNewObject[] Product = cicTetapService.doGetListProduct(cicTetapModel);
             // Respon
             ResponseModel response = new ResponseModel();
             response.setMsg("Request successfully");
@@ -94,7 +97,7 @@ public class CicTetapController {
     public ResponseEntity<ResponseModel> searchProductController(
             @Validated(PostingNew.class) @RequestBody CicTetapModel cicTetapModel) {
         try {
-            Object[] cicilan = cicTetapService.doSearchTrans(cicTetapModel);
+            CicTetapObject[] cicilan = cicTetapService.doSearchTrans(cicTetapModel);
             // Respon
             ResponseModel response = new ResponseModel();
             response.setMsg("Request successfully");

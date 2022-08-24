@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import id.co.nds.gadai_2022_08_08.domains.CicTetapObject;
+import id.co.nds.gadai_2022_08_08.domains.CustNewObject;
+import id.co.nds.gadai_2022_08_08.domains.ProdNewObject;
 import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicTetapEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicilanEntity;
@@ -77,7 +80,7 @@ public class CicTetapService implements Serializable {
         return getDate;
     }
 
-    public CustomerEntity[] doSearchPelanggan(CicTetapModel cictTetapModel) {
+    public CustNewObject[] doSearchPelanggan(CicTetapModel cictTetapModel) {
         ArrayList<CustomerEntity> customers = new ArrayList<>();
         CustomerModel customerModel = new CustomerModel();
         customerModel.setCustId(cictTetapModel.getCustId());
@@ -86,27 +89,40 @@ public class CicTetapService implements Serializable {
         customerModel.setCustHp(cictTetapModel.getCustHp());
         customerModel.setCustStatus(GlobalConstanst.REC_STATUS_ACTIVE);
         customerModel.setActorId(cictTetapModel.getActorId());
-        CustomerEntity[] customersArray = {};
+        CustNewObject[] customersArray = {};
         customersArray = customers.toArray(customersArray);
         return customersArray;
     }
 
-    public ProductEntity[] doGetListProduct(CicTetapModel cicTetapModel) throws ClientException, NotFoundException {
+    public ProdNewObject[] doGetListProduct(CicTetapModel cicTetapModel) throws ClientException, NotFoundException {
+        cicTetapValidator.validateActorId(cicTetapModel.getActorId());
+
         ArrayList<ProductEntity> products = new ArrayList<>();
         ProductModel productModel = new ProductModel();
         productModel.setProductStatus(GlobalConstanst.REC_STATUS_ACTIVE);
         productModel.setActorId(cicTetapModel.getActorId());
-        ProductEntity[] productsArray = {};
+        ProdNewObject[] productsArray = {};
         productsArray = products.toArray(productsArray);
         return productsArray;
     }
 
-    public Object[] doSearchTrans(CicTetapModel cicTetapModel) {
+    public CicTetapObject[] doSearchTrans(CicTetapModel cicTetapModel) throws ClientException {
+        cicTetapValidator.validateproductId(cicTetapModel.getProductId());
+        cicTetapValidator.validateProductName(cicTetapModel.getProductName());
+        cicTetapValidator.validateDateBegin(cicTetapModel.getTrxDateBegin());
+        cicTetapValidator.validateDateEnd(cicTetapModel.getTrxDateEnd());
+        cicTetapValidator.validateStatus(cicTetapModel.getStatusTrans());
+        cicTetapValidator.validateKtp(cicTetapModel.getCustKtp());
+        cicTetapValidator.validateCustId(cicTetapModel.getCustId());
+        cicTetapValidator.validateCustName(cicTetapModel.getCustName());
+        cicTetapValidator.validateNotransaksi(cicTetapModel.getNoTransaksi());
+        cicTetapValidator.validateActorId(cicTetapModel.getActorId());
+
         List<CicTetapEntity> cicilan = new ArrayList<>();
         CicTetapSpec spec = new CicTetapSpec(cicTetapModel);
         cicTetapRepo.findAll(spec).forEach(cicilan::add);
 
-        ArrayList<Object> o = new ArrayList<>();
+        ArrayList<CicTetapObject> o = new ArrayList<>();
         String status;
         Boolean add = true;
         for (int i = 0; i < cicilan.size(); i++) {
@@ -135,12 +151,12 @@ public class CicTetapService implements Serializable {
             }
 
             if (add) {
-                o.add(new Object());
+                o.add(new CicTetapObject(cicilan.get(i), status));
             }
 
             add = true;
         }
-        Object[] a = {};
+        CicTetapObject[] a = {};
         a = o.toArray(a);
         return a;
     }
@@ -157,6 +173,9 @@ public class CicTetapService implements Serializable {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = { Exception.class })
     public CicTetapEntity doHitungTrans(CicTetapModel cicTetapModel) throws ClientException {
+        cicTetapValidator.validateActorId(cicTetapModel.getActorId());
+        cicTetapValidator.validateproductId(cicTetapModel.getProductId());
+
         ProductModel productModel = new ProductModel();
         productModel.setProductId(cicTetapModel.getProductId());
         productModel.setActorId(cicTetapModel.getActorId());
@@ -209,7 +228,12 @@ public class CicTetapService implements Serializable {
     }
 
     public CicTetapEntity doSaveTrans(CicTetapModel cicTetapModel) throws ClientException {
-        cicTetapValidator.notnullTransaksi(cicTetapModel.getNoTransaksi());
+        // cicTetapValidator.notnullTransaksi(cicTetapModel.getNoTransaksi());
+        // cicTetapValidator.validateNotransaksi(cicTetapModel.getNoTransaksi());
+        cicTetapValidator.validateproductId(cicTetapModel.getProductId());
+        cicTetapValidator.validateCustId(cicTetapModel.getCustId());
+        cicTetapValidator.validateActorId(cicTetapModel.getActorId());
+
         Long count = cicTetapRepo.countByTransaksi(cicTetapModel.getNoTransaksi());
         if (count > 0) {
             throw new ClientException("transaksi is already existed");

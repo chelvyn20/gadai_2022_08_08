@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-
-import org.apache.logging.log4j.core.tools.picocli.CommandLine.Help.Ansi.Text;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -41,10 +39,10 @@ public class ActivityEntity{
     private String logDesc;
 
     @Column(name = "data_before")
-    private Text dataBefore;
+    private String dataBefore;
 
     @Column(name = "data_after")
-    private Text dataAfter;
+    private String dataAfter;
 
     public Timestamp getLogTime() {
         return logTime;
@@ -86,19 +84,19 @@ public class ActivityEntity{
         this.logDesc = logDesc;
     }
 
-    public Text getDataBefore() {
+    public String getDataBefore() {
         return dataBefore;
     }
 
-    public void setDataBefore(Text dataBefore) {
+    public void setDataBefore(String dataBefore) {
         this.dataBefore = dataBefore;
     }
 
-    public Text getDataAfter() {
+    public String getDataAfter() {
         return dataAfter;
     }
 
-    public void setDataAfter(Text dataAfter) {
+    public void setDataAfter(String dataAfter) {
         this.dataAfter = dataAfter;
     }
 

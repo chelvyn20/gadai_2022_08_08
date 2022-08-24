@@ -2,16 +2,14 @@ package id.co.nds.gadai_2022_08_08.models;
 
 import java.sql.Timestamp;
 
-import org.apache.logging.log4j.core.tools.picocli.CommandLine.Help.Ansi.Text;
-
 public class ActivityModel {
     private Timestamp logTime;
     private String logBy;
     private String logType;
     private String logModule;
     private String logDesc;
-    private Text dataBefore;
-    private Text dataAfter;
+    private String dataBefore;
+    private String dataAfter;
     
     public Timestamp getLogTime() {
         return logTime;
@@ -43,16 +41,16 @@ public class ActivityModel {
     public void setLogDesc(String logDesc) {
         this.logDesc = logDesc;
     }
-    public Text getDataBefore() {
+    public String getDataBefore() {
         return dataBefore;
     }
-    public void setDataBefore(Text dataBefore) {
+    public void setDataBefore(String dataBefore) {
         this.dataBefore = dataBefore;
     }
-    public Text getDataAfter() {
+    public String getDataAfter() {
         return dataAfter;
     }
-    public void setDataAfter(Text dataAfter) {
+    public void setDataAfter(String dataAfter) {
         this.dataAfter = dataAfter;
     }
 }

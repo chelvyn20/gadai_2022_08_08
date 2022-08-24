@@ -77,104 +77,104 @@ public class BarangController {
     //     }
     // }
 
-    @GetMapping(value = "/doGetDetailBarang/{noTransaksi}")
-    public ResponseEntity<ResponseModel> searchProductController(@PathVariable String noTransaksi) {
-        try {
-            BarangEntity Barang = BarangService.findById(noTransaksi);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(Barang);
-            return ResponseEntity.ok(response);
-        } catch (ClientException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (NotFoundException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @GetMapping(value = "/doGetDetailBarang/{noTransaksi}")
+    // public ResponseEntity<ResponseModel> searchProductController(@PathVariable String noTransaksi) {
+    //     try {
+    //         BarangEntity Barang = BarangService.findById(noTransaksi);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(Barang);
+    //         return ResponseEntity.ok(response);
+    //     } catch (ClientException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (NotFoundException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 
-    @PutMapping(value = "/doUpdate")
-    public ResponseEntity<ResponseModel> putProductController(
-            @Validated(UpdatingById.class) @RequestBody BarangModel BarangModel) {
-        try {
-            BarangEntity Barang = BarangService.edit(BarangModel);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(Barang);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @PutMapping(value = "/doUpdate")
+    // public ResponseEntity<ResponseModel> putProductController(
+    //         @Validated(UpdatingById.class) @RequestBody BarangModel BarangModel) {
+    //     try {
+    //         BarangEntity Barang = BarangService.edit(BarangModel);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(Barang);
+    //         return ResponseEntity.ok(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Sorry, there is a failure on our server.");
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 
-    @DeleteMapping(value = "/doDelete")
-    public ResponseEntity<ResponseModel> deleteProductController(
-            @Validated(DeletingById.class) @RequestBody BarangModel BarangModel) {
-        try {
-            BarangEntity Barang = BarangService.delete(BarangModel);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(Barang);
-            return ResponseEntity.ok(response);
-        } catch (ClientException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (NotFoundException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server");
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @DeleteMapping(value = "/doDelete")
+    // public ResponseEntity<ResponseModel> deleteProductController(
+    //         @Validated(DeletingById.class) @RequestBody BarangModel BarangModel) {
+    //     try {
+    //         BarangEntity Barang = BarangService.delete(BarangModel);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(Barang);
+    //         return ResponseEntity.ok(response);
+    //     } catch (ClientException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (NotFoundException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Sorry, there is a failure on our server");
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 
-    @GetMapping(value = "/get/info")
-    public ResponseEntity<ResponseModel> getAllByCategoryController(
-            @Validated(PostingNew.class) @RequestParam String noTransaksi) {
-        try {
-            List<InfoBarangEntity> products = BarangService.findAllBybarang(noTransaksi);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(products);
-            return ResponseEntity.ok(response);
-        } catch (ClientException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (NotFoundException e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @GetMapping(value = "/get/info")
+    // public ResponseEntity<ResponseModel> getAllByCategoryController(
+    //         @Validated(PostingNew.class) @RequestParam String noTransaksi) {
+    //     try {
+    //         List<InfoBarangEntity> products = BarangService.findAllBybarang(noTransaksi);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(products);
+    //         return ResponseEntity.ok(response);
+    //     } catch (ClientException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (NotFoundException e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg(e.getMessage());
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 }

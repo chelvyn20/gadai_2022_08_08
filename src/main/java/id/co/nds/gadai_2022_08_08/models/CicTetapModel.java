@@ -16,6 +16,7 @@ public class CicTetapModel {
     private String statusTrans;
     private Double biayaAdminBuka;
     private Double biayaAdminTutup;
+    
     public Double getBiayaAdminTutup() {
         return biayaAdminTutup;
     }

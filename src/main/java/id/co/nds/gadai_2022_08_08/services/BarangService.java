@@ -30,7 +30,7 @@ public class BarangService implements Serializable {
 
     public BarangEntity add(BarangModel BarangModel) throws ClientException {
         barangValidator.nullCheckNoTransaksi(BarangModel.getNoTransaksi());
-        barangValidator.validateNotransaksi(BarangModel.getNoTransaksi());
+        // barangValidator.validateNotransaksi(BarangModel.getNoTransaksi());
 
         Long count = barangRepo.countByTransaksi(BarangModel.getNoTransaksi());
         if (count > 0) {
@@ -38,6 +38,7 @@ public class BarangService implements Serializable {
         }
 
         BarangEntity Barang = new BarangEntity();
+        Barang.setNoTransaksi(BarangModel.getNoTransaksi());
         Barang.setNamaBarang(BarangModel.getNamaBarang());
         Barang.setKondisi(BarangModel.getKondisi());
         Barang.setNoUrut(BarangModel.getNoUrut());
@@ -47,12 +48,12 @@ public class BarangService implements Serializable {
         return barangRepo.save(Barang);
     }
 
-    public List<BarangEntity> findAllByCriteria(BarangModel BarangModel) {
-        List<BarangEntity> Barang = new ArrayList<>();
-        BarangSpec spec = new BarangSpec(BarangModel);
-        barangRepo.findAll(spec).forEach(Barang::add);
-        return Barang;
-    }
+    // public List<BarangEntity> findAllByCriteria(BarangModel BarangModel) {
+    //     List<BarangEntity> Barang = new ArrayList<>();
+    //     BarangSpec spec = new BarangSpec(BarangModel);
+    //     barangRepo.findAll(spec).forEach(Barang::add);
+    //     return Barang;
+    // }
 
     public BarangEntity findById(String noTransaksi) throws ClientException, NotFoundException {
         barangValidator.nullCheckNoTransaksi(noTransaksi);
@@ -87,8 +88,6 @@ public class BarangService implements Serializable {
             Barang.setJlh(BarangModel.getJumlah());
         }
 
-
-
         return barangRepo.save(Barang);
     }
 
@@ -102,11 +101,11 @@ public class BarangService implements Serializable {
         // proses
         BarangEntity Barang = new BarangEntity();
         Barang = findById(BarangModel.getNoTransaksi());
-        
+
         return barangRepo.save(Barang);
     }
 
-    public List<InfoBarangEntity> findAllBybarang(String noTransaksi) throws ClientException, NotFoundException{
+    public List<InfoBarangEntity> findAllBybarang(String noTransaksi) throws ClientException, NotFoundException {
         barangValidator.nullCheckNoTransaksi(noTransaksi);
         barangValidator.validateNotransaksi(noTransaksi);
 

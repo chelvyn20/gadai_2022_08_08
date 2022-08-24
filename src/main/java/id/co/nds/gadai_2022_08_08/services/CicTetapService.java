@@ -155,8 +155,7 @@ public class CicTetapService implements Serializable {
         return cicilan;
     }
 
-    // @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {
-    // Exception.class })
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = { Exception.class })
     public CicTetapEntity doHitungTrans(CicTetapModel cicTetapModel) throws ClientException {
         ProductModel productModel = new ProductModel();
         productModel.setProductId(cicTetapModel.getProductId());

@@ -39,6 +39,7 @@ public class CicilanService implements Serializable {
         }
 
         CicilanEntity Cicilan = new CicilanEntity();
+        Cicilan.setNoTransaksi(CicilanModel.getNoTransaksi());
         Cicilan.setCicilanKe(CicilanModel.getCicilanKe());
         Cicilan.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         Cicilan.setTxPokok(CicilanModel.getTxPokok());

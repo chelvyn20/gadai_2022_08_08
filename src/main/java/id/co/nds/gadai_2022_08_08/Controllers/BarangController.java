@@ -59,23 +59,23 @@ public class BarangController {
         }
     }
 
-    @GetMapping(value = "/doSearchBarang")
-    public ResponseEntity<ResponseModel> searchBarangController(
-            @Validated(GettingAllByCriteria.class) @RequestBody BarangModel BarangModel) {
-        try {
-            List<BarangEntity> Barang = BarangService.findAllByCriteria(BarangModel);
-            // Respon
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Request successfully");
-            response.setData(Barang);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            ResponseModel response = new ResponseModel();
-            response.setMsg("Sorry, there is a failure on our server.");
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
+    // @GetMapping(value = "/doSearchBarang")
+    // public ResponseEntity<ResponseModel> searchBarangController(
+    //         @Validated(GettingAllByCriteria.class) @RequestBody BarangModel BarangModel) {
+    //     try {
+    //         List<BarangEntity> Barang = BarangService.findAllByCriteria(BarangModel);
+    //         // Respon
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Request successfully");
+    //         response.setData(Barang);
+    //         return ResponseEntity.ok(response);
+    //     } catch (Exception e) {
+    //         ResponseModel response = new ResponseModel();
+    //         response.setMsg("Sorry, there is a failure on our server.");
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body(response);
+    //     }
+    // }
 
     @GetMapping(value = "/doGetDetailBarang/{noTransaksi}")
     public ResponseEntity<ResponseModel> searchProductController(@PathVariable String noTransaksi) {

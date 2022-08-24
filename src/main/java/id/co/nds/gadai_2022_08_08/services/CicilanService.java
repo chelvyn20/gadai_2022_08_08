@@ -14,6 +14,7 @@ import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
 import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 import id.co.nds.gadai_2022_08_08.models.CicilanModel;
+import id.co.nds.gadai_2022_08_08.repos.AktivityRepo;
 import id.co.nds.gadai_2022_08_08.repos.CicilanRepo;
 // import id.co.nds.gadai_2022_08_08.repos.InfoCicilanRepo;
 import id.co.nds.gadai_2022_08_08.repos.specs.CicilanSpec;
@@ -24,10 +25,24 @@ public class CicilanService implements Serializable {
     @Autowired
     private CicilanRepo CicilanRepo;
 
+    @Autowired
+    private AktivityRepo aktivityRepo;
+
     // @Autowired
     // private InfoCicilanRepo infoCicilanRepo;
 
     // CicilanValidator CicilanValidator = new CicilanValidator();
+
+    private static Date setDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date getDate = new Date(calendar.getTime().getTime());
+        return getDate;
+    }
 
     public CicilanEntity add(CicilanModel CicilanModel) throws ClientException {
         // CicilanValidator.nullCheckNoTransaksi(CicilanModel.getNoTransaksi());
@@ -52,12 +67,12 @@ public class CicilanService implements Serializable {
         return CicilanRepo.save(Cicilan);
     }
 
-    // public List<CicilanEntity> findAllByCriteria(CicilanModel CicilanModel) {
-    //     List<CicilanEntity> Cicilan = new ArrayList<>();
-    //     CicilanSpec spec = new CicilanSpec(CicilanModel);
-    //     CicilanRepo.findAll(spec).forEach(Cicilan::add);
-    //     return Cicilan;
-    // }
+    public List<CicilanEntity> findAllByCriteria(CicilanModel CicilanModel) {
+        List<CicilanEntity> Cicilan = new ArrayList<>();
+        CicilanSpec spec = new CicilanSpec(CicilanModel);
+        CicilanRepo.findAll().forEach(Cicilan::add);
+        return Cicilan;
+    }
 
     // public CicilanEntity findById(String noTransaksi) throws ClientException, NotFoundException {
     //     // CicilanValidator.nullCheckNoTransaksi(noTransaksi);
@@ -135,4 +150,22 @@ public class CicilanService implements Serializable {
     //     CicilanValidator.nullCheckObject(Cicilan);
     //     return Cicilan;
     // }
+
+    public List<CicilanEntity> schedulerCicilan () throws ClientException{
+        List<CicilanEntity> cicilan = new ArrayList<>();
+        CicilanEntity cic = new CicilanEntity();
+        CicilanRepo.findAll().forEach(cicilan::add);
+        String status;
+        // Boolean add = true;
+
+        for (Integer i = 0; i < cicilan.size(); i++) { 
+            cicilan = aktivityRepo.Aktif();     
+            cicilan.get(i).setTxStatus("AKTIF");
+        }
+        for (Integer i = 0; i < cicilan.size(); i++) { 
+            cicilan = aktivityRepo.Terlambat();     
+            cicilan.get(i).setTxStatus("TERLAMBAT");
+        }
+        return cicilan;
+    }
 }

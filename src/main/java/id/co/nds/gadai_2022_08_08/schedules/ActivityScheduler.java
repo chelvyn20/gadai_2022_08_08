@@ -17,6 +17,7 @@ import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
 import id.co.nds.gadai_2022_08_08.entities.ActivityEntity;
+import id.co.nds.gadai_2022_08_08.entities.CicilanEntity;
 import id.co.nds.gadai_2022_08_08.models.ResponseModel;
 import id.co.nds.gadai_2022_08_08.repos.ActivityRepo;
 
@@ -76,7 +77,7 @@ public class ActivityScheduler implements SchedulingConfigurer{
 
             //here, put the business logic
             // ProductEntity p = new ProductEntity();
-            List<ProductEntity> product = productRepo.findProductLessThan();
+            List<CicilanEntity> product = cici.findProductLessThan();
             logger.info("Product Which less than 5 quantity = ");
             ResponseModel response = new ResponseModel();
             response.setData(product);

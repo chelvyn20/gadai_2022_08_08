@@ -1,7 +1,6 @@
 package id.co.nds.gadai_2022_08_08.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -26,7 +25,8 @@ import id.co.nds.gadai_2022_08_08.domains.noTransaksi;
 @Table(name = "\"TX_CICILAN\"")
 public class CicilanEntity implements Serializable {
     @Id
-    // @GenericGenerator(name = "cicil_id_seq", strategy = "id.co.nds.catalogue.generators.CicilanGenerator")
+    // @GenericGenerator(name = "cicil_id_seq", strategy =
+    // "id.co.nds.catalogue.generators.CicilanGenerator")
     // @GeneratedValue(generator = "cicil_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -38,10 +38,10 @@ public class CicilanEntity implements Serializable {
     private Integer cicilanKe;
 
     @Column(name = "tx_pokok")
-    private BigDecimal txPokok;
+    private Double txPokok;
 
     @Column(name = "tx_bunga")
-    private BigDecimal txBunga;
+    private Double txBunga;
 
     @Column(name = "tx_status")
     private String txStatus;
@@ -74,20 +74,20 @@ public class CicilanEntity implements Serializable {
         this.cicilanKe = cicilanKe;
     }
 
-    public BigDecimal getTxPokok() {
+    public Double getTxPokok() {
         return txPokok;
     }
 
-    public void setTxPokok(BigDecimal txPokok) {
-        this.txPokok = txPokok;
+    public void setTxPokok(double d) {
+        this.txPokok = d;
     }
 
-    public BigDecimal getTxBunga() {
+    public Double getTxBunga() {
         return txBunga;
     }
 
-    public void setTxBunga(BigDecimal txBunga) {
-        this.txBunga = txBunga;
+    public void setTxBunga(double d) {
+        this.txBunga = d;
     }
 
     public String getTxStatus() {

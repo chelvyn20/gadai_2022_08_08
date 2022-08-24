@@ -242,7 +242,6 @@ public class CicTetapService implements Serializable {
         CustomerModel customerModel = new CustomerModel();
         CustomerEntity customer = customerService.doGetDetailPelanggan(customerModel);
         CicTetapEntity cicilan = new CicTetapEntity();
-        CicTetapEntity x = cicTetapRepo.save(cicilan);
         String status = "AKTIF";
 
         customerModel.setCustId(cicTetapModel.getCustId());
@@ -251,18 +250,17 @@ public class CicTetapService implements Serializable {
         cicilan.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         cicilan.setCustomer(customer);
 
+        CicTetapEntity x = cicTetapRepo.save(cicilan);
+
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date(x.getTanggalTx().getTime()));
         for (int i = 0; i < x.getProduct().getProductTenor() / x.getProduct().getBiayaJsPenyPer(); i++) {
             CicilanEntity cic = new CicilanEntity();
             cic.setNoTransaksi(x.getNoTransaksi());
             cic.setCicilanKe(i + 1);
-            cic.setTxPokok(new BigDecimal(x.getTotalNilaiPinj().doubleValue()
-                    / (x.getProduct().getProductTenor() / x.getProduct().getBiayaJsPenyPer()))
-                    .setScale(2, RoundingMode.HALF_UP));
-            cic.setTxBunga(new BigDecimal(
-                    cic.getTxPokok().doubleValue() * x.getProduct().getBiayaJsPenyPer().doubleValue() / 100)
-                    .setScale(2, RoundingMode.HALF_UP));
+            cic.setTxPokok((x.getTotalNilaiPinj().doubleValue()
+                    / (x.getProduct().getProductTenor() / x.getProduct().getBiayaJsPenyPer())));
+            cic.setTxBunga((cic.getTxPokok().doubleValue() * x.getProduct().getBiayaJsPenyPer().doubleValue() / 100));
             cic.setTxStatus(status);
             cic.setTanggalAktif(new Date(x.getTanggalTx().getTime()));
 

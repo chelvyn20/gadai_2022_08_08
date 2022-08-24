@@ -42,8 +42,8 @@ public class CicilanService implements Serializable {
         Cicilan.setNoTransaksi(CicilanModel.getNoTransaksi());
         Cicilan.setCicilanKe(CicilanModel.getCicilanKe());
         Cicilan.setCreatedDate(new Timestamp(System.currentTimeMillis()));
-        Cicilan.setTxPokok(CicilanModel.getTxPokok());
-        Cicilan.setTxBunga(CicilanModel.getTxBunga());
+        Cicilan.setTxPokok(CicilanModel.getTxPokok().doubleValue());
+        Cicilan.setTxBunga(CicilanModel.getTxBunga().doubleValue());
         Cicilan.setTxStatus(CicilanModel.getTxStatus());
         Cicilan.setTanggalAktif(CicilanModel.getTanggalAktif());
         Cicilan.setTanggalJatuhTempo(CicilanModel.getTanggalJatuhTempo());

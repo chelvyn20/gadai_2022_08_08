@@ -286,8 +286,6 @@ public class TrxCicTetapService implements Serializable {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
     
-        Date res = new Date(calendar.getTime().getTime());
-    
-        return res;
+        return new Date(calendar.getTime().getTime());
     }
 }

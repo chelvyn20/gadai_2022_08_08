@@ -3,12 +3,12 @@ package id.co.nds.gadai_2022_08_08.models;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+// import javax.validation.constraints.NotBlank;
+// import javax.validation.constraints.NotNull;
 // import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Range;
+// import org.hibernate.validator.constraints.Range;
 
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingById;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;

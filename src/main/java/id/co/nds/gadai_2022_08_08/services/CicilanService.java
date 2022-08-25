@@ -11,9 +11,9 @@ import java.util.*;
 import id.co.nds.gadai_2022_08_08.entities.CicilanEntity;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
-import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
+// import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 import id.co.nds.gadai_2022_08_08.models.CicilanModel;
-import id.co.nds.gadai_2022_08_08.repos.AktivityRepo;
+// import id.co.nds.gadai_2022_08_08.repos.AktivityRepo;
 import id.co.nds.gadai_2022_08_08.repos.CicilanRepo;
 // import id.co.nds.gadai_2022_08_08.repos.InfoCicilanRepo;
 import id.co.nds.gadai_2022_08_08.repos.specs.CicilanSpec;
@@ -23,9 +23,6 @@ import id.co.nds.gadai_2022_08_08.validators.CicilanValidator;
 public class CicilanService implements Serializable {
     @Autowired
     private CicilanRepo CicilanRepo;
-
-    @Autowired
-    private AktivityRepo aktivityRepo;
 
     // @Autowired
     // private InfoCicilanRepo infoCicilanRepo;

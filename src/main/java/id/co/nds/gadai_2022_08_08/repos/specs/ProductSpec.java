@@ -21,7 +21,7 @@ public class ProductSpec implements Specification<ProductEntity> {
 
     @Override
     public Predicate toPredicate(Root<ProductEntity> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        // TODO Auto-generated method stub
+        
         Predicate p = cb.and();
 
         if (productModel.getProductId() != null && productModel.getProductId().length() > 0) {

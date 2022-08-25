@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingAllByCriteria;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
 import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
-import id.co.nds.gadai_2022_08_08.entities.InfoBarangEntity;
+// import id.co.nds.gadai_2022_08_08.entities.InfoBarangEntity;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.DeletingById;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;

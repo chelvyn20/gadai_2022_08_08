@@ -1,7 +1,7 @@
 package id.co.nds.gadai_2022_08_08.models;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+// import java.sql.Date;
 
 public class CicTetapModel {
     private String noTransaksi;

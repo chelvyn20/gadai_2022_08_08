@@ -20,7 +20,7 @@ public class BarangSpec implements Specification<BarangEntity> {
 
     @Override
     public Predicate toPredicate(Root<BarangEntity> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        // TODO Auto-generated method stub
+    
         // private String noTransaksi;
         // private String namaBarang;
         // private Integer noUrut;

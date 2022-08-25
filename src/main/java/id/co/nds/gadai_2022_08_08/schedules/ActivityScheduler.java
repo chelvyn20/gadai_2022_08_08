@@ -1,7 +1,7 @@
 package id.co.nds.gadai_2022_08_08.schedules;
 
-import java.sql.Date;
-import java.util.ArrayList;
+// import java.sql.Date;
+// import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
@@ -9,7 +9,7 @@ import java.util.concurrent.ScheduledFuture;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.scheduling.annotation.Scheduled;
+// import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.TaskScheduler;
@@ -21,21 +21,21 @@ import org.springframework.stereotype.Component;
 
 import id.co.nds.gadai_2022_08_08.entities.CicilanEntity;
 import id.co.nds.gadai_2022_08_08.entities.DendaEntity;
-import id.co.nds.gadai_2022_08_08.models.CicilanModel;
-import id.co.nds.gadai_2022_08_08.models.ResponseModel;
+// import id.co.nds.gadai_2022_08_08.models.CicilanModel;
+// import id.co.nds.gadai_2022_08_08.models.ResponseModel;
 import id.co.nds.gadai_2022_08_08.repos.Actrepo;
-import id.co.nds.gadai_2022_08_08.repos.AktivityRepo;
-import id.co.nds.gadai_2022_08_08.repos.CicilanRepo;
+// import id.co.nds.gadai_2022_08_08.repos.AktivityRepo;
+// import id.co.nds.gadai_2022_08_08.repos.CicilanRepo;
 import id.co.nds.gadai_2022_08_08.services.ActivityService;
-import id.co.nds.gadai_2022_08_08.services.CicilanService;
+// import id.co.nds.gadai_2022_08_08.services.CicilanService;
 
 @Component
 public class ActivityScheduler implements SchedulingConfigurer {
 
     @Autowired
     private Actrepo actrepo;
-    @Autowired
-    private CicilanService cicilanService;
+    // @Autowired
+    // private CicilanService cicilanService;
     @Autowired
     private ActivityService activityService;
 
@@ -60,7 +60,7 @@ public class ActivityScheduler implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-        // TODO Auto-generated method stub
+        
         if (scheduledTaskRegistrar == null) {
             scheduledTaskRegistrar = taskRegistrar;
         }

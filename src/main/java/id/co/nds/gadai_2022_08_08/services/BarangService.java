@@ -8,13 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
-import id.co.nds.gadai_2022_08_08.entities.InfoBarangEntity;
+// import id.co.nds.gadai_2022_08_08.entities.InfoBarangEntity;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
-import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
+// import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 import id.co.nds.gadai_2022_08_08.models.BarangModel;
 import id.co.nds.gadai_2022_08_08.repos.BarangRepo;
-import id.co.nds.gadai_2022_08_08.repos.InfoBarangRepo;
 import id.co.nds.gadai_2022_08_08.repos.specs.BarangSpec;
 import id.co.nds.gadai_2022_08_08.validators.BarangValidator;
 
@@ -22,9 +21,6 @@ import id.co.nds.gadai_2022_08_08.validators.BarangValidator;
 public class BarangService implements Serializable {
     @Autowired
     private BarangRepo barangRepo;
-
-    @Autowired
-    private InfoBarangRepo infoBarangRepo;
 
     BarangValidator barangValidator = new BarangValidator();
 

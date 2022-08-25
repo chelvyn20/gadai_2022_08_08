@@ -3,9 +3,9 @@ package id.co.nds.gadai_2022_08_08.entities;
 import java.io.Serializable;
 // import java.math.Double;
 // import java.math.Double;
-import java.sql.Date;
+// import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,16 +15,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+// import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
+// import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
+// import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
 
 @Entity
 @Table(name = "tx_transaksi_cicilan_tetap")

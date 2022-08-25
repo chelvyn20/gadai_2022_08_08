@@ -12,7 +12,7 @@ import org.hibernate.id.IdentifierGenerator;
 public class DendaGenerator implements IdentifierGenerator {
     @Override
     public Serializable generate(SharedSessionContractImplementor ssci, Object o) throws HibernateException {
-        // TODO Auto-generated method stub
+        
         Connection connection = ssci.connection();
         try {
             PreparedStatement ps = connection

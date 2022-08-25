@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javax.persistence.EmbeddedId;
-import id.co.nds.gadai_2022_08_08.domains.*;
+// import javax.persistence.EmbeddedId;
+// import id.co.nds.gadai_2022_08_08.domains.*;
 
 public class CicilanModel {
     // @EmbeddedId

@@ -21,7 +21,7 @@ public class UserSpec implements Specification<UserEntity> {
 
     @Override
     public Predicate toPredicate(Root<UserEntity> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        // TODO Auto-generated method stub
+        
         Predicate p = cb.and();
 
         if (userModel.getUserId() != null && userModel.getUserId().length() > 0) {

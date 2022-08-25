@@ -1,6 +1,6 @@
 package id.co.nds.gadai_2022_08_08.repos;
 
-import java.util.List;
+// import java.util.List;
 
 // import java.util.List;
 

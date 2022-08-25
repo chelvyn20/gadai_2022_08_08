@@ -1,7 +1,7 @@
 package id.co.nds.gadai_2022_08_08.domains;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+// import java.sql.Timestamp;
 
 import javax.persistence.Column;
 

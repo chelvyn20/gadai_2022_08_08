@@ -20,7 +20,7 @@ public class CicilanSpec implements Specification<CicilanEntity> {
 
     @Override
     public Predicate toPredicate(Root<CicilanEntity> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        // TODO Auto-generated method stub
+        
     //     private Double txPokok;
     // private Double txBunga;
     // private String txStatus;

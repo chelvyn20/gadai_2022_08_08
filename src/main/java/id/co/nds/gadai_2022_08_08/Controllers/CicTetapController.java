@@ -2,41 +2,41 @@ package id.co.nds.gadai_2022_08_08.Controllers;
 
 import id.co.nds.gadai_2022_08_08.services.CicTetapService;
 
-import java.util.List;
+// import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
+// import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+// import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.GettingAllByCriteria;
 import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.PostingNew;
-import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
+// import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.UpdatingById;
 import id.co.nds.gadai_2022_08_08.domains.CicTetapObject;
 import id.co.nds.gadai_2022_08_08.domains.CustNewObject;
 import id.co.nds.gadai_2022_08_08.domains.ProdNewObject;
-import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
+// import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicTetapEntity;
-import id.co.nds.gadai_2022_08_08.entities.CustomerEntity;
-import id.co.nds.gadai_2022_08_08.entities.InfoBarangEntity;
-import id.co.nds.gadai_2022_08_08.entities.ProductEntity;
-import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.DeletingById;
+// import id.co.nds.gadai_2022_08_08.entities.CustomerEntity;
+// import id.co.nds.gadai_2022_08_08.entities.InfoBarangEntity;
+// import id.co.nds.gadai_2022_08_08.entities.ProductEntity;
+// import id.co.nds.gadai_2022_08_08.Controllers.ControllerGroup.DeletingById;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
-import id.co.nds.gadai_2022_08_08.models.BarangModel;
+// import id.co.nds.gadai_2022_08_08.models.BarangModel;
 import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
-import id.co.nds.gadai_2022_08_08.models.CustomerModel;
-import id.co.nds.gadai_2022_08_08.models.ProductModel;
+// import id.co.nds.gadai_2022_08_08.models.CustomerModel;
+// import id.co.nds.gadai_2022_08_08.models.ProductModel;
 import id.co.nds.gadai_2022_08_08.models.ResponseModel;
-import id.co.nds.gadai_2022_08_08.services.BarangService;
+// import id.co.nds.gadai_2022_08_08.services.BarangService;
 
 @RestController
 @Validated

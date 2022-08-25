@@ -2,9 +2,9 @@ package id.co.nds.gadai_2022_08_08.services;
 
 import java.io.Serializable;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+// import java.io.Serializable;
+// import java.math.BigDecimal;
+// import java.math.RoundingMode;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import id.co.nds.gadai_2022_08_08.domains.noTransaksi;
+// import id.co.nds.gadai_2022_08_08.domains.noTransaksi;
 import id.co.nds.gadai_2022_08_08.entities.CicTetapEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicilanEntity;
 import id.co.nds.gadai_2022_08_08.entities.DendaEntity;
@@ -110,15 +110,22 @@ public class ActivityService implements Serializable {
         List<CicilanEntity> cicilan = new ArrayList<>();
         CicilanRepo.findAll().forEach(cicilan::add);
 
-        for (Integer i = 0; i < cicilan.size(); i++) {
-            if (cicilan == aktivityRepo.Aktif()) {
+        if (cicilan == aktivityRepo.Aktif()) {
+            for (Integer i = 0; i < cicilan.size(); i++) {
                 cicilan.get(i).setTxStatus("AKTIF");
-            } else if (cicilan == aktivityRepo.Terlambat()) {
-                cicilan.get(i).setTxStatus("TERLAMBAT");
+
+                aktivityRepo.save(cicilan.get(i));
+                cicilan.forEach(cicilan::add);
             }
-            aktivityRepo.save(cicilan.get(i));
-            cicilan.forEach(cicilan::add);
+        } else if (cicilan == aktivityRepo.Terlambat()) {
+            for (Integer i = 0; i < cicilan.size(); i++) {
+                cicilan.get(i).setTxStatus("TERLAMBAT");
+
+                aktivityRepo.save(cicilan.get(i));
+                cicilan.forEach(cicilan::add);
+            }
         }
+
         return cicilan;
     }
 }

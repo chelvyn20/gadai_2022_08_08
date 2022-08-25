@@ -5,21 +5,21 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
+// import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.persistence.OneToMany;
+// import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.GenericGenerator;
+// import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+// import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+// import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import id.co.nds.gadai_2022_08_08.domains.noTransaksi;
+// import id.co.nds.gadai_2022_08_08.domains.noTransaksi;
 
 @Entity
 @Table(name = "tx_cicilan")

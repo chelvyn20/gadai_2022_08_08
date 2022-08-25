@@ -14,10 +14,10 @@ import org.springframework.data.jpa.domain.Specification;
 import id.co.nds.gadai_2022_08_08.entities.CicTetapEntity;
 import id.co.nds.gadai_2022_08_08.entities.CustomerEntity;
 import id.co.nds.gadai_2022_08_08.entities.ProductEntity;
-import id.co.nds.gadai_2022_08_08.models.BarangModel;
+// import id.co.nds.gadai_2022_08_08.models.BarangModel;
 import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
-import id.co.nds.gadai_2022_08_08.models.CustomerModel;
-import id.co.nds.gadai_2022_08_08.models.ProductModel;
+// import id.co.nds.gadai_2022_08_08.models.CustomerModel;
+// import id.co.nds.gadai_2022_08_08.models.ProductModel;
 
 public class CicTetapSpec implements Specification<CicTetapEntity> {
     private CicTetapModel cicTetapModel;
@@ -29,7 +29,7 @@ public class CicTetapSpec implements Specification<CicTetapEntity> {
 
     @Override
     public Predicate toPredicate(Root<CicTetapEntity> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        // TODO Auto-generated method stub
+        
         Predicate p = cb.and();
 
         Join<CicTetapEntity, ProductEntity> joinProduct = root.join("product");

@@ -142,6 +142,7 @@ public class TrxCicTetapService implements Serializable {
 
         ProductModel productModel = new ProductModel();
         productModel.setProductStatus(GlobalConstant.REC_STATUS_ACTIVE);
+        productModel.setProductTipe("Konsinyasi Cicilan Tetap");
         productModel.setActorId(trxCicTetapModel.getActorId());
 
         ProductEntity[] productsData = productService.doSearchProduk(productModel);

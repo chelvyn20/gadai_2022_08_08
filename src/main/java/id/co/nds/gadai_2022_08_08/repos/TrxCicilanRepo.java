@@ -29,6 +29,6 @@ public interface TrxCicilanRepo extends JpaRepository<TrxCicilanEntity, TrxCicil
         + " AND tanggal_jatuh_tempo < CURRENT_DATE", nativeQuery = true)
     List<TrxCicilanEntity> getChangeToLate();
 
-    @Query(value = "SELECT * FROM \"TX_CICILAN\" WHERE UPPER(tx_status) = 'TERLAMBAT'", nativeQuery = true)
+    @Query(value = "SELECT * FROM \"TX_CICILAN\" WHERE UPPER(tx_status) = 'TERLAMBAT' ORDER BY no_transaksi, cicilan_ke", nativeQuery = true)
     List<TrxCicilanEntity> getLateCicilan();
 }

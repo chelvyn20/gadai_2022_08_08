@@ -34,8 +34,6 @@ public class TrxDendaService implements Serializable {
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {Exception.class})
     public List<TrxDendaEntity> doCheckDenda() {
         List<TrxDendaEntity> dendaList = new ArrayList<>();
-        TrxDendaEntity trxDendaEntity = new TrxDendaEntity();
-        trxDendaEntity.setTglDenda(new Date(System.currentTimeMillis()));
 
         List<TrxCicilanEntity> cicilan = new ArrayList<>();
         cicilan = trxCicilanService.doGetCicilanTerlambat();
@@ -51,37 +49,25 @@ public class TrxDendaService implements Serializable {
         TrxCicTetapModel trxModel = new TrxCicTetapModel();
         trxModel.setActorId("Scheduler");
         for(int i = 0; i < cicilan.size(); i++) {
-            if(trxDendaRepo.countDuplicate(cicilan.get(i).getNoTransaksi(), cicilan.get(i).getCicilanKe(), trxDendaEntity.getTglDenda()) == 0) {
+            if(trxDendaRepo.countDuplicate(cicilan.get(i).getNoTransaksi(), cicilan.get(i).getCicilanKe(), new Date(System.currentTimeMillis())) == 0) {
                 trxModel.setNoTransaksi(cicilan.get(i).getNoTransaksi());
                 TrxCicTetapEntity trx = trxCicTetapService.doGetDetailCicTetap(trxModel);
 
                 start.setTime(cicilan.get(i).getTanggalJatuhTempo());
                 start.add(Calendar.DAY_OF_MONTH, 1);
                 
-                if(trx.getProduct().getProductTipe().equalsIgnoreCase("Konsinyasi Cicilan Fleksibel")) {
-                    long timeDiff = Math.abs(setZeroDate(new Date(start.getTime().getTime())).getTime() - setZeroDate(new Date(System.currentTimeMillis())).getTime());
-                    long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
+                long timeDiff = Math.abs(setZeroDate(new Date(start.getTime().getTime())).getTime() - setZeroDate(new Date(System.currentTimeMillis())).getTime());
+                long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
 
-                    if(daysDiff % trx.getProduct().getProductBiayaDendaPeriode() == 0) {
-                        trxDendaEntity.setNoTransaksi(trx.getNoTransaksi());
-                        trxDendaEntity.setCicilanKe(cicilan.get(i).getCicilanKe());
-                        trxDendaEntity.setBiayaDenda(new BigDecimal(trx.getProduct().getProductBiayaDenda().doubleValue() / 100 * (cicilan.get(i).getTxPokok().doubleValue() + cicilan.get(i).getTxBunga().doubleValue())).setScale(2, RoundingMode.HALF_UP));
+                if(daysDiff % trx.getProduct().getProductBiayaDendaPeriode() == 0) {
+                    TrxDendaEntity trxDendaEntity = new TrxDendaEntity();
+                    trxDendaEntity.setTglDenda(new Date(System.currentTimeMillis()));
+                    trxDendaEntity.setNoTransaksi(trx.getNoTransaksi());
+                    trxDendaEntity.setCicilanKe(cicilan.get(i).getCicilanKe());
+                    trxDendaEntity.setBiayaDenda(new BigDecimal(trx.getProduct().getProductBiayaDenda().doubleValue() / 100 * (cicilan.get(i).getTxPokok().doubleValue() + cicilan.get(i).getTxBunga().doubleValue())).setScale(2, RoundingMode.HALF_UP));
 
-                        trxDendaRepo.save(trxDendaEntity);
-                        dendaList.add(trxDendaEntity);
-                    }
-                }
-                else {
-                    long monthsDiff = (current.get(Calendar.YEAR) - start.get(Calendar.YEAR)) * 12 + current.get(Calendar.MONTH) - start.get(Calendar.MONTH);
-                    
-                    if(monthsDiff % trx.getProduct().getProductBiayaDendaPeriode() == 0 && start.get(Calendar.DATE) == current.get(Calendar.DATE)) {
-                        trxDendaEntity.setNoTransaksi(trx.getNoTransaksi());
-                        trxDendaEntity.setCicilanKe(cicilan.get(i).getCicilanKe());
-                        trxDendaEntity.setBiayaDenda(new BigDecimal(trx.getProduct().getProductBiayaDenda().doubleValue() / 100 * (cicilan.get(i).getTxPokok().doubleValue() + cicilan.get(i).getTxBunga().doubleValue())).setScale(2, RoundingMode.HALF_UP));
-
-                        trxDendaRepo.save(trxDendaEntity);
-                        dendaList.add(trxDendaEntity);
-                    }
+                    trxDendaRepo.save(trxDendaEntity);
+                    dendaList.add(trxDendaEntity);
                 }
             }
         }

@@ -51,69 +51,61 @@ public class BarangService implements Serializable {
         return barangRepo.save(Barang);
     }
 
-    // public List<BarangEntity> findAllByCriteria(BarangModel BarangModel) {
-    //     List<BarangEntity> Barang = new ArrayList<>();
-    //     BarangSpec spec = new BarangSpec(BarangModel);
-    //     barangRepo.findAll(spec).forEach(Barang::add);
-    //     return Barang;
-    // }
+    public List<BarangEntity> findAllByCriteria(BarangModel BarangModel) {
+        List<BarangEntity> Barang = new ArrayList<>();
+        BarangSpec spec = new BarangSpec(BarangModel);
+        barangRepo.findAll().forEach(Barang::add);
+        return Barang;
+    }
 
-    // public BarangEntity findById(String noTransaksi) throws ClientException, NotFoundException {
-    //     barangValidator.nullCheckNoTransaksi(noTransaksi);
-    //     barangValidator.validateNotransaksi(noTransaksi);
+    public BarangEntity findById(String noTransaksi) throws ClientException, NotFoundException {
+        barangValidator.nullCheckNoTransaksi(noTransaksi);
+        barangValidator.validateNotransaksi(noTransaksi);
 
-    //     BarangEntity Barang = barangRepo.findById(noTransaksi).orElse(null);
-    //     barangValidator.nullCheckObject(Barang);
-    //     return Barang;
-    // }
+        BarangEntity Barang = barangRepo.findById(noTransaksi).orElse(null);
+        barangValidator.nullCheckObject(Barang);
+        return Barang;
+    }
 
-    // public BarangEntity edit(BarangModel BarangModel) throws ClientException, NotFoundException {
-    //     barangValidator.nullCheckNoTransaksi(BarangModel.getNoTransaksi());
-    //     barangValidator.validateNotransaksi(BarangModel.getNoTransaksi());
-    //     if (!barangRepo.existsById(BarangModel.getNoTransaksi())) {
-    //         throw new NotFoundException("Cannot find Barang with no transaksi = " + BarangModel.getNoTransaksi());
-    //     }
+    public BarangEntity edit(BarangModel BarangModel) throws ClientException, NotFoundException {
+        barangValidator.nullCheckNoTransaksi(BarangModel.getNoTransaksi());
+        barangValidator.validateNotransaksi(BarangModel.getNoTransaksi());
+        if (!barangRepo.existsById(BarangModel.getNoTransaksi())) {
+            throw new NotFoundException("Cannot find Barang with no transaksi = " + BarangModel.getNoTransaksi());
+        }
 
-    //     BarangEntity Barang = new BarangEntity();
-    //     Barang = findById(BarangModel.getNoTransaksi());
+        BarangEntity Barang = new BarangEntity();
+        Barang = findById(BarangModel.getNoTransaksi());
 
-    //     if (BarangModel.getNamaBarang() != null) {
-    //         barangValidator.validateName(BarangModel.getNamaBarang());
-    //         Barang.setNamaBarang(BarangModel.getNamaBarang());
-    //     }
+        if (BarangModel.getNamaBarang() != null) {
+            barangValidator.validateName(BarangModel.getNamaBarang());
+            Barang.setNamaBarang(BarangModel.getNamaBarang());
+        }
 
-    //     if (BarangModel.getKondisi() != null) {
-    //         barangValidator.validateKondisi(BarangModel.getKondisi());
-    //         Barang.setKondisi(BarangModel.getKondisi());
-    //     }
+        if (BarangModel.getKondisi() != null) {
+            barangValidator.validateKondisi(BarangModel.getKondisi());
+            Barang.setKondisi(BarangModel.getKondisi());
+        }
 
-    //     if (BarangModel.getJumlah() != null) {
-    //         Barang.setJlh(BarangModel.getJumlah());
-    //     }
+        if (BarangModel.getJumlah() != null) {
+            Barang.setJlh(BarangModel.getJumlah());
+        }
 
-    //     return barangRepo.save(Barang);
-    // }
+        return barangRepo.save(Barang);
+    }
 
-    // public BarangEntity delete(BarangModel BarangModel) throws ClientException, NotFoundException {
-    //     barangValidator.nullCheckNoTransaksi(BarangModel.getNoTransaksi());
-    //     barangValidator.validateNotransaksi(BarangModel.getNoTransaksi());
-    //     if (!barangRepo.existsById(BarangModel.getNoTransaksi())) {
-    //         throw new NotFoundException("Cannot find Barang with no transaksi : " + BarangModel.getNoTransaksi());
-    //     }
+    public BarangEntity delete(BarangModel BarangModel) throws ClientException, NotFoundException {
+        barangValidator.nullCheckNoTransaksi(BarangModel.getNoTransaksi());
+        barangValidator.validateNotransaksi(BarangModel.getNoTransaksi());
+        if (!barangRepo.existsById(BarangModel.getNoTransaksi())) {
+            throw new NotFoundException("Cannot find Barang with no transaksi : " + BarangModel.getNoTransaksi());
+        }
 
-    //     // proses
-    //     BarangEntity Barang = new BarangEntity();
-    //     Barang = findById(BarangModel.getNoTransaksi());
+        // proses
+        BarangEntity Barang = new BarangEntity();
+        Barang = findById(BarangModel.getNoTransaksi());
 
-    //     return barangRepo.save(Barang);
-    // }
+        return barangRepo.save(Barang);
+    }
 
-    // public List<InfoBarangEntity> findAllBybarang(String noTransaksi) throws ClientException, NotFoundException {
-    //     barangValidator.nullCheckNoTransaksi(noTransaksi);
-    //     barangValidator.validateNotransaksi(noTransaksi);
-
-    //     List<InfoBarangEntity> barang = infoBarangRepo.SearchTrans(noTransaksi);
-    //     barangValidator.nullCheckObject(barang);
-    //     return barang;
-    // }
 }

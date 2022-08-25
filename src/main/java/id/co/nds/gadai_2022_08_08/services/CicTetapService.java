@@ -3,21 +3,21 @@ package id.co.nds.gadai_2022_08_08.services;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+// import java.math.BigDecimal;
+// import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import id.co.nds.gadai_2022_08_08.domains.CicTetapObject;
 import id.co.nds.gadai_2022_08_08.domains.CustNewObject;
 import id.co.nds.gadai_2022_08_08.domains.ProdNewObject;
-import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
+// import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicTetapEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicilanEntity;
 import id.co.nds.gadai_2022_08_08.entities.CustomerEntity;
@@ -28,18 +28,18 @@ import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
 import id.co.nds.gadai_2022_08_08.models.CustomerModel;
 import id.co.nds.gadai_2022_08_08.models.ProductModel;
-import id.co.nds.gadai_2022_08_08.repos.BarangRepo;
+// import id.co.nds.gadai_2022_08_08.repos.BarangRepo;
 import id.co.nds.gadai_2022_08_08.repos.CicTetapRepo;
 import id.co.nds.gadai_2022_08_08.repos.CicilanRepo;
-import id.co.nds.gadai_2022_08_08.repos.CustomerRepo;
-import id.co.nds.gadai_2022_08_08.repos.InfoCicTetapRepo;
-import id.co.nds.gadai_2022_08_08.repos.ProductRepo;
+// import id.co.nds.gadai_2022_08_08.repos.CustomerRepo;
+// import id.co.nds.gadai_2022_08_08.repos.InfoCicTetapRepo;
+// import id.co.nds.gadai_2022_08_08.repos.ProductRepo;
 // import id.co.nds.gadai_2022_08_08.repos.specs.CicTetapModel;
 import java.util.Calendar;
 import java.sql.Date;
 
 import id.co.nds.gadai_2022_08_08.repos.specs.CicTetapSpec;
-import id.co.nds.gadai_2022_08_08.repos.specs.CustomerSpec;
+// import id.co.nds.gadai_2022_08_08.repos.specs.CustomerSpec;
 import id.co.nds.gadai_2022_08_08.validators.CicTetapValidator;
 import id.co.nds.gadai_2022_08_08.validators.ProductValidator;
 
@@ -48,20 +48,20 @@ public class CicTetapService implements Serializable {
     @Autowired
     private CicTetapRepo cicTetapRepo;
 
-    @Autowired
-    private BarangRepo barangRepo;
+    // @Autowired
+    // private BarangRepo barangRepo;
 
     @Autowired
     private CicilanRepo cicilanRepo;
 
-    @Autowired
-    private CustomerRepo customerRepo;
+    // @Autowired
+    // private CustomerRepo customerRepo;
 
     @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    private ProductRepo productRepo;
+    // @Autowired
+    // private ProductRepo productRepo;
 
     @Autowired
     private ProductService productService;

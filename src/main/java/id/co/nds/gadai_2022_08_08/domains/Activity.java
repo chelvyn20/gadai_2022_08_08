@@ -6,15 +6,15 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 
 public class Activity implements Serializable{
-    @Column(name = "log_time")
-    private Timestamp logTime;
+    // @Column(name = "log_time")
+    // private Timestamp logTime;
     
     @Column(name = "log_by")
     private String logBy;
 
     
-    public Activity(Timestamp time, String logBy) {
-        this.logTime = time;
+    public Activity(String logBy) {
+        // this.logTime = time;
         this.logBy = logBy;
     }
 
@@ -22,13 +22,13 @@ public class Activity implements Serializable{
 
     }
 
-    public Timestamp getLogTime() {
-        return logTime;
-    }
+    // public Timestamp getLogTime() {
+    //     return logTime;
+    // }
 
-    public void setLogTime(Timestamp logTime) {
-        this.logTime = logTime;
-    }
+    // public void setLogTime(Timestamp logTime) {
+    //     this.logTime = logTime;
+    // }
 
     public String getLogBy() {
         return logBy;

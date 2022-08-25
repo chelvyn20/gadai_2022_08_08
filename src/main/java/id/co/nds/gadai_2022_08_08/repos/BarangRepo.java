@@ -10,7 +10,7 @@ import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
 
 @Repository
 public interface BarangRepo extends JpaRepository<BarangEntity, String>{
-    @Query(value = "SELECT COUNT(*) from \"TX_TRANSAKSI_BARANG\" WHERE LOWER(no_transaksi) = LOWER(:noTransaksi) ", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) from tx_transaksi_barang WHERE LOWER(no_transaksi) = LOWER(:noTransaksi) ", nativeQuery = true)
     Long countByTransaksi(@Param("noTransaksi") String noTransaksi);
 
 }

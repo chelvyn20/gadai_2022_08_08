@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
 
 @Entity
-@Table(name = "\"TX_TRANSAKSI_CICILAN_TETAP\"")
+@Table(name = "tx_transaksi_cicilan_tetap")
 public class CicTetapEntity implements Serializable{
     @Id
     // @GenericGenerator(name = "cicilanTetap_id_seq", strategy = "id.co.nds.catalogue.generators.CicilantetapGenerator")

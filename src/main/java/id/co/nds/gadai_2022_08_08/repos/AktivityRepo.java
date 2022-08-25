@@ -11,14 +11,14 @@ import id.co.nds.gadai_2022_08_08.domains.noTransaksi;
 import id.co.nds.gadai_2022_08_08.entities.CicilanEntity;
 
 public interface AktivityRepo extends JpaRepository<CicilanEntity, noTransaksi> {
-    @Query(value = "SELECT * FROM \"TX_CICILAN\" WHERE UPPER(tx_status) = 'BELUM AKTIF'"
+    @Query(value = "SELECT * FROM tx_cicilan WHERE UPPER(tx_status) = 'BELUM AKTIF'"
             + " AND tanggal_aktif <= CURRENT_DATE", nativeQuery = true)
     List<CicilanEntity> Aktif();
 
-    @Query(value = "SELECT * FROM \"TX_CICILAN\" WHERE UPPER(tx_status) = 'AKTIF'"
+    @Query(value = "SELECT * FROM tx_cicilan WHERE UPPER(tx_status) = 'AKTIF'"
             + " AND tanggal_jatuh_tempo < CURRENT_DATE", nativeQuery = true)
     List<CicilanEntity> Terlambat();
 
-    @Query(value = "SELECT * FROM \"TX_CICILAN\" WHERE UPPER(tx_status) = 'TERLAMBAT'", nativeQuery = true)
+    @Query(value = "SELECT * FROM tx_cicilan WHERE UPPER(tx_status) = 'TERLAMBAT'", nativeQuery = true)
     List<CicilanEntity> BelumBayar();
 }

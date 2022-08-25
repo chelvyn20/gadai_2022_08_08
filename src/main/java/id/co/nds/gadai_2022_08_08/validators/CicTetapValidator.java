@@ -1,11 +1,11 @@
 package id.co.nds.gadai_2022_08_08.validators;
 
-import java.math.BigDecimal;
-import java.time.YearMonth;
+// import java.math.BigDecimal;
+// import java.time.YearMonth;
 
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
-import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
+// import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 
 public class CicTetapValidator {
     public void nullCheckNoTransaksi(String transaksi) throws ClientException {

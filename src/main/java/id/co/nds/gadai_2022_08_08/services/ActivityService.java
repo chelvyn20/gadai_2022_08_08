@@ -24,6 +24,7 @@ import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
 import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
 import id.co.nds.gadai_2022_08_08.repos.AktivityRepo;
+import id.co.nds.gadai_2022_08_08.repos.CicilanRepo;
 import id.co.nds.gadai_2022_08_08.repos.DendaRepo;
 
 @Service
@@ -31,6 +32,9 @@ import id.co.nds.gadai_2022_08_08.repos.DendaRepo;
 public class ActivityService implements Serializable{
     @Autowired
     private DendaRepo dendaRepo;
+
+    @Autowired
+    private CicilanRepo CicilanRepo;
 
     @Autowired
     private AktivityRepo aktivityRepo;
@@ -61,15 +65,20 @@ public class ActivityService implements Serializable{
         List<CicilanEntity> cicilan = new ArrayList<>();
         cicilan = aktivityRepo.BelumBayar();
 
-        Calendar awal = Calendar.getInstance();
+        
         Calendar now = Calendar.getInstance();
         now.setTime(new java.util.Date(System.currentTimeMillis()));
         int a = now.get(Calendar.YEAR);
         int a1 = now.get(Calendar.MONTH);
         int a2 = now.get(Calendar.DATE);
+
+        Calendar awal = Calendar.getInstance();
         int b = awal.get(Calendar.YEAR);
         int b1 = awal.get(Calendar.MONTH);
         int b2 = awal.get(Calendar.DATE);
+
+        long c = setDate(new Date(awal.getTime().getTime())).getTime();
+        long d = setDate(new Date(System.currentTimeMillis())).getTime();
 
         CicTetapModel cic = new CicTetapModel();
         cic.setActorId("Cicilan");
@@ -82,24 +91,21 @@ public class ActivityService implements Serializable{
                 now.add(Calendar.DAY_OF_MONTH, 1);
                 
                 if(tx.getProduct().getProductType().equalsIgnoreCase("Konsinyasi Cicilan Fleksibel")) {
-                    long timeDiff = Math.abs(setDate(new Date(awal.getTime().getTime())).getTime() - setDate(new Date(System.currentTimeMillis())).getTime());
-                    long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
+                    long time = Math.abs(c - d);
 
-                    if(daysDiff % tx.getProduct().getBiayaDendaKeterlambatanPer() == 0) {
+                    if(TimeUnit.DAYS.convert(time, TimeUnit.MILLISECONDS) % tx.getProduct().getBiayaDendaKeterlambatanPer() == 0) {
                         denda2.setNoTransaksi(tx.getNoTransaksi());
                         denda2.setCicilanKe(cicilan.get(i).getCicilanKe());
-                        denda2.setBiayaDenda(tx.getProduct().getBiayaDendaKeterlambatanrate() / 100 * (cicilan.get(i).getTxPokok().doubleValue() + cicilan.get(i).getTxBunga().doubleValue()));
-
+                        denda2.setBiayaDenda((cicilan.get(i).getTxPokok().doubleValue() + cicilan.get(i).getTxBunga().doubleValue()) * tx.getProduct().getBiayaDendaKeterlambatanrate() / 100 );
                         dendaRepo.save(denda2);
                         denda.add(denda2);
                     }
                 }
                 else {                    
-                    if((a-b) * 12 + a1 - b1 % tx.getProduct().getBiayaDendaKeterlambatanPer() == 0 && a2 == b2) {
+                    if(12*(a-b) + (a1-b1) % tx.getProduct().getBiayaDendaKeterlambatanPer() == 0 && a2 == b2) {
                         denda2.setNoTransaksi(tx.getNoTransaksi());
                         denda2.setCicilanKe(cicilan.get(i).getCicilanKe());
-                        denda2.setBiayaDenda(tx.getProduct().getBiayaDendaKeterlambatanrate() / 100 * (cicilan.get(i).getTxPokok().doubleValue() + cicilan.get(i).getTxBunga().doubleValue()));
-
+                        denda2.setBiayaDenda((cicilan.get(i).getTxPokok().doubleValue() + cicilan.get(i).getTxBunga().doubleValue()) * tx.getProduct().getBiayaDendaKeterlambatanrate() / 100 );
                         dendaRepo.save(denda2);
                         denda.add(denda2);
                     }
@@ -108,5 +114,21 @@ public class ActivityService implements Serializable{
         }
 
         return denda;
+    }
+
+
+    public List<CicilanEntity> schedulerCicilan () throws ClientException{
+        List<CicilanEntity> cicilan = new ArrayList<>();
+        CicilanRepo.findAll().forEach(cicilan::add);
+
+        for (Integer i = 0; i < cicilan.size(); i++) { 
+            cicilan = aktivityRepo.Aktif();     
+            cicilan.get(i).setTxStatus("AKTIF");
+        }
+        for (Integer i = 0; i < cicilan.size(); i++) { 
+            cicilan = aktivityRepo.Terlambat();     
+            cicilan.get(i).setTxStatus("TERLAMBAT");
+        }
+        return cicilan;
     }
 }

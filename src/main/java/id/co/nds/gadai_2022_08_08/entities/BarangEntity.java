@@ -17,12 +17,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "\"TX_TRANSAKSI_BARANG\"")
+@Table(name = "tx_transaksi_barang")
 public class BarangEntity implements Serializable{
     @Id
     // @GenericGenerator(name = "barang_id_seq", strategy = "id.co.nds.catalogue.generators.BarangGenerator")
     // @GeneratedValue(generator = "barang_id_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     
     @JsonManagedReference

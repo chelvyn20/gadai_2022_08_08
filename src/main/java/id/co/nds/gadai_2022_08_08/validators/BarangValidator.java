@@ -2,7 +2,7 @@ package id.co.nds.gadai_2022_08_08.validators;
 
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
-import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
+// import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 
 public class BarangValidator {
     public void nullCheckNoTransaksi(String transaksi) throws ClientException {

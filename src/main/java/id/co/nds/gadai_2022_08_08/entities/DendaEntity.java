@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "\"TX_DENDA_KETERLAMBATAN\"")
+@Table(name = "tx_denda_keterlambatan")
 public class DendaEntity implements Serializable{
     @Id
     // @GenericGenerator(name = "denda_id_seq", strategy = "id.co.nds.catalogue.generators.DendaGenerator")

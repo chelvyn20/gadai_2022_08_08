@@ -14,7 +14,7 @@ import id.co.nds.gadai_2022_08_08.entities.CicTetapEntity;
 
 @Repository
 public interface CicTetapRepo extends JpaRepository<CicTetapEntity, String>, JpaSpecificationExecutor<CicTetapEntity> {
-    @Query(value = "SELECT COUNT(*) from \"TX_TRANSAKSI_CICILAN_TETAP\" WHERE LOWER(no_transaksi) = LOWER(:noTransaksi) ", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) from tx_transaksi_cicilan_tetap WHERE LOWER(no_transaksi) = LOWER(:noTransaksi) ", nativeQuery = true)
     Long countByTransaksi(@Param("noTransaksi") String noTransaksi);
 
     // @Query(value = "SELECT c.customer_id, a.customer_name, c.created_date, c.no_transaksi, c.product_id, b.product_name, b.product_desc, d.* " +

@@ -17,7 +17,7 @@ public class CicilantetapGenerator implements IdentifierGenerator {
         Connection connection = ssci.connection();
         try {
             PreparedStatement ps = connection
-                    .prepareStatement("SELECT COUNT(*) AS seq FROM \"TX_TRANSAKSI_CICILAN_TETAP\" ");
+                    .prepareStatement("SELECT COUNT(*) AS seq FROM tx_transaksi_cicilan_tetap ");
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {

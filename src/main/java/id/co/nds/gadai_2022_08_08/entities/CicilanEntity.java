@@ -22,13 +22,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import id.co.nds.gadai_2022_08_08.domains.noTransaksi;
 
 @Entity
-@Table(name = "\"TX_CICILAN\"")
+@Table(name = "tx_cicilan")
 public class CicilanEntity implements Serializable {
     @Id
     // @GenericGenerator(name = "cicil_id_seq", strategy =
     // "id.co.nds.catalogue.generators.CicilanGenerator")
     // @GeneratedValue(generator = "cicil_id_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @JoinColumn(name = "no_transaksi", referencedColumnName = "no_transaksi")
     @Column(name = "no_transaksi")

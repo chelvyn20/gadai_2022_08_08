@@ -12,6 +12,8 @@ import javax.persistence.Id;
 // import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 // import org.hibernate.annotations.GenericGenerator;
 
 // import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,9 +21,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tx_denda_keterlambatan")
-public class DendaEntity implements Serializable{
+public class DendaEntity implements Serializable {
     @Id
-    // @GenericGenerator(name = "denda_id_seq", strategy = "id.co.nds.catalogue.generators.DendaGenerator")
+    // @GenericGenerator(name = "denda_id_seq", strategy ="id.co.nds.catalogue.generators.DendaGenerator")
     // @GeneratedValue(generator = "denda_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -102,5 +104,4 @@ public class DendaEntity implements Serializable{
         this.noPembayaran = noPembayaran;
     }
 
-    
 }

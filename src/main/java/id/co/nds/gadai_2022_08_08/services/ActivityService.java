@@ -108,6 +108,7 @@ public class ActivityService implements Serializable {
 
     public List<CicilanEntity> schedulerCicilan() throws ClientException {
         List<CicilanEntity> cicilan = new ArrayList<>();
+        // CicilanRepo.findAll().forEach(cicilan::add);
 
         if (cicilan == aktivityRepo.Aktif()) {
             for (Integer i = 0; i < cicilan.size(); i++) {

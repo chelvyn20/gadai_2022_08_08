@@ -17,24 +17,24 @@ import org.springframework.stereotype.Service;
 import id.co.nds.gadai_2022_08_08.domains.CicTetapObject;
 import id.co.nds.gadai_2022_08_08.domains.CustNewObject;
 import id.co.nds.gadai_2022_08_08.domains.ProdNewObject;
-// import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
+import id.co.nds.gadai_2022_08_08.entities.BarangEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicTetapEntity;
 import id.co.nds.gadai_2022_08_08.entities.CicilanEntity;
 import id.co.nds.gadai_2022_08_08.entities.CustomerEntity;
 import id.co.nds.gadai_2022_08_08.entities.ProductEntity;
+import id.co.nds.gadai_2022_08_08.entities.UserEntity;
 import id.co.nds.gadai_2022_08_08.exceptions.ClientException;
 import id.co.nds.gadai_2022_08_08.exceptions.NotFoundException;
 import id.co.nds.gadai_2022_08_08.globals.GlobalConstanst;
 import id.co.nds.gadai_2022_08_08.models.CicTetapModel;
 import id.co.nds.gadai_2022_08_08.models.CustomerModel;
 import id.co.nds.gadai_2022_08_08.models.ProductModel;
-// import id.co.nds.gadai_2022_08_08.repos.BarangRepo;
+import id.co.nds.gadai_2022_08_08.models.UserModel;
+import id.co.nds.gadai_2022_08_08.repos.BarangRepo;
 import id.co.nds.gadai_2022_08_08.repos.CicTetapRepo;
 import id.co.nds.gadai_2022_08_08.repos.CicilanRepo;
 // import id.co.nds.gadai_2022_08_08.repos.CustomerRepo;
-// import id.co.nds.gadai_2022_08_08.repos.InfoCicTetapRepo;
 // import id.co.nds.gadai_2022_08_08.repos.ProductRepo;
-// import id.co.nds.gadai_2022_08_08.repos.specs.CicTetapModel;
 import java.util.Calendar;
 import java.sql.Date;
 
@@ -48,8 +48,8 @@ public class CicTetapService implements Serializable {
     @Autowired
     private CicTetapRepo cicTetapRepo;
 
-    // @Autowired
-    // private BarangRepo barangRepo;
+    @Autowired
+    private BarangRepo barangRepo;
 
     @Autowired
     private CicilanRepo cicilanRepo;
@@ -62,6 +62,9 @@ public class CicTetapService implements Serializable {
 
     // @Autowired
     // private ProductRepo productRepo;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ProductService productService;
@@ -81,7 +84,7 @@ public class CicTetapService implements Serializable {
     }
 
     public CustNewObject[] doSearchPelanggan(CicTetapModel cictTetapModel) {
-        ArrayList<CustomerEntity> customers = new ArrayList<>();
+        List<CustNewObject> cust = new ArrayList<>();
         CustomerModel customerModel = new CustomerModel();
         customerModel.setCustId(cictTetapModel.getCustId());
         customerModel.setCustName(cictTetapModel.getCustName());
@@ -89,18 +92,28 @@ public class CicTetapService implements Serializable {
         customerModel.setCustHp(cictTetapModel.getCustHp());
         customerModel.setCustStatus(GlobalConstanst.REC_STATUS_ACTIVE);
         customerModel.setActorId(cictTetapModel.getActorId());
+
+        CustomerEntity[] customers = customerService.doSearchPelanggan(customerModel);
+        for(int i = 0; i < customers.length; i++) {
+            cust.add(new CustNewObject(customers[i].getCustId(), customers[i].getCustKtp(), customers[i].getCustHp(), customers[i].getCustName()));
+        }
         CustNewObject[] customersArray = {};
-        customersArray = customers.toArray(customersArray);
+        customersArray = cust.toArray(customersArray);
         return customersArray;
     }
 
     public ProdNewObject[] doGetListProduct(CicTetapModel cicTetapModel) throws ClientException, NotFoundException {
         cicTetapValidator.validateActorId(cicTetapModel.getActorId());
 
-        ArrayList<ProductEntity> products = new ArrayList<>();
         ProductModel productModel = new ProductModel();
         productModel.setProductStatus(GlobalConstanst.REC_STATUS_ACTIVE);
         productModel.setActorId(cicTetapModel.getActorId());
+
+        List<ProductEntity> products = productService.findAllByCriteria(productModel);
+        for(int i = 0; i < products.size(); i++) {
+            products.add(new ProdNewObject(products.get(i).getProductId(), products.get(i).getProductName(), products.get(i).getProductDesc()));
+        }
+
         ProdNewObject[] productsArray = {};
         productsArray = products.toArray(productsArray);
         return productsArray;
@@ -122,7 +135,7 @@ public class CicTetapService implements Serializable {
         CicTetapSpec spec = new CicTetapSpec(cicTetapModel);
         cicTetapRepo.findAll(spec).forEach(cicilan::add);
 
-        ArrayList<CicTetapObject> o = new ArrayList<>();
+        List<CicTetapObject> o = new ArrayList<>();
         String status;
         Boolean add = true;
         for (int i = 0; i < cicilan.size(); i++) {
@@ -181,8 +194,11 @@ public class CicTetapService implements Serializable {
         productModel.setActorId(cicTetapModel.getActorId());
 
         ProductEntity product = (ProductEntity) productService.findAllByCriteria(productModel);
-
         CicTetapEntity transaksi = new CicTetapEntity();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(transaksi.getTanggalTx());
+        cal.add(Calendar.MONTH, product.getProductTenor());
+
         transaksi.setTotalNilaiTak(cicTetapModel.getTotalNilaiTaksiran().doubleValue());
         transaksi.setNilaiPencairanPel(cicTetapModel.getNilaiPencairanPelanggan().doubleValue());
         transaksi.setDiskonAdmBuka(cicTetapModel.getDiskonAdmBuka().doubleValue());
@@ -190,22 +206,19 @@ public class CicTetapService implements Serializable {
         transaksi.setMaxNilaiPinj(
                 (cicTetapModel.getTotalNilaiTaksiran().doubleValue() * product.getProductLtv().doubleValue()));
 
-        if (product.getBiayaAdmBukaType().equalsIgnoreCase("NOMINAL"))
+        if (product.getBiayaAdmBukaType().equalsIgnoreCase("NOMINAL")) {
             transaksi.setBiayaAdmBuka(product.getBiayaAdmBukaVal());
-        else
+        } 
+        else{
             transaksi.setBiayaAdmBuka((cicTetapModel.getNilaiPencairanPelanggan().doubleValue()
-                    * product.getBiayaAdmBukaVal().doubleValue() / 100));
-
+            * product.getBiayaAdmBukaVal().doubleValue() / 100));
+        }
+            
         transaksi.setBiayaAdmBukaAk((transaksi.getBiayaAdmBuka().doubleValue()
                 - (transaksi.getBiayaAdmBuka().doubleValue() * transaksi.getDiskonAdmBuka().doubleValue() / 100)));
         transaksi.setTotalNilaiPinj(
                 (transaksi.getNilaiPencairanPel().doubleValue() + transaksi.getBiayaAdmBukaAk().doubleValue()));
-        transaksi.setTanggalTx(new Timestamp(System.currentTimeMillis()));
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(transaksi.getTanggalTx());
-        cal.add(Calendar.MONTH, product.getProductTenor());
-
+        transaksi.setTanggalTx(new Timestamp(System.currentTimeMillis()));     
         transaksi.setTanggalJatuhTempo(new Timestamp(cal.getTime().getTime()));
         transaksi.setTxBiayaJasaPeny(product.getBiayaJsPenyRate());
         transaksi.setTxBiayaJasaPenyPer(
@@ -214,11 +227,13 @@ public class CicTetapService implements Serializable {
         transaksi.setTotalBiayaJasaPeny(((product.getProductTenor() / product.getBiayaJsPenyPer())
                 * product.getBiayaJsPenyRate().doubleValue()));
 
-        if (product.getBiayaAdmTutupType().equalsIgnoreCase("NOMINAL"))
+        if (product.getBiayaAdmTutupType().equalsIgnoreCase("NOMINAL")){
             transaksi.setTxBiayaAdmTutup(product.getBiayaAdmTutupVal());
-        else
+        }
+        else{
             transaksi.setTxBiayaAdmTutup((cicTetapModel.getNilaiPencairanPelanggan().doubleValue()
-                    * product.getBiayaAdmBukaVal().doubleValue() / 100));
+                    * product.getBiayaAdmTutupVal().doubleValue() / 100));
+        }
 
         transaksi.setTotalPengem((transaksi.getTotalNilaiPinj().doubleValue()
                 + transaksi.getTotalBiayaJasaPeny().doubleValue() + transaksi.getTxBiayaAdmTutup().doubleValue()));
@@ -227,7 +242,7 @@ public class CicTetapService implements Serializable {
         return transaksi;
     }
 
-    public CicTetapEntity doSaveTrans(CicTetapModel cicTetapModel) throws ClientException {
+    public CicTetapEntity doSaveTrans(CicTetapModel cicTetapModel) throws ClientException, NotFoundException {
         // cicTetapValidator.notnullTransaksi(cicTetapModel.getNoTransaksi());
         // cicTetapValidator.validateNotransaksi(cicTetapModel.getNoTransaksi());
         cicTetapValidator.validateproductId(cicTetapModel.getProductId());
@@ -242,18 +257,37 @@ public class CicTetapService implements Serializable {
         CustomerModel customerModel = new CustomerModel();
         CustomerEntity customer = customerService.doGetDetailPelanggan(customerModel);
         CicTetapEntity cicilan = new CicTetapEntity();
+        UserModel userModel = new UserModel();
+        UserEntity user = userService.findById(userModel.getUserId());
         String status = "AKTIF";
+        
+        if(cicTetapModel.getNilaiPencairanPelanggan().doubleValue() > user.getMaxLimit().doubleValue()
+                && cicTetapModel.getNilaiPencairanPelanggan().doubleValue() > customer.getCustLimitTxn().doubleValue()) {
+            throw new ClientException("Nilai Pencairan Pelanggan is not valid");
+        }
 
         customerModel.setCustId(cicTetapModel.getCustId());
         customerModel.setActorId(cicTetapModel.getActorId());
+        userModel.setActorId(cicTetapModel.getActorId());
         cicilan = doHitungTrans(cicTetapModel);
         cicilan.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         cicilan.setCustomer(customer);
 
         CicTetapEntity x = cicTetapRepo.save(cicilan);
+        Calendar date = Calendar.getInstance();
+        date.setTime(new Date(x.getTanggalTx().getTime()));
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date(x.getTanggalTx().getTime()));
+        for(int i = 0; i < cicTetapModel.getDaftarBarang().length; i++) {
+            BarangEntity Barang = new BarangEntity();
+            Barang.setNoTransaksi(x.getNoTransaksi());
+            Barang.setNoUrut(cicTetapModel.getDaftarBarang()[i].getNoUrut());
+            Barang.setNamaBarang(cicTetapModel.getDaftarBarang()[i].getNamaBarang());
+            Barang.setKondisi(cicTetapModel.getDaftarBarang()[i].getKondisi());
+            Barang.setJlh(cicTetapModel.getDaftarBarang()[i].getJumlah());
+            Barang.setHargaPerSatuan(cicTetapModel.getDaftarBarang()[i].getHargaPerSatuan().doubleValue());
+            barangRepo.save(Barang);
+        }
+
         for (int i = 0; i < x.getProduct().getProductTenor() / x.getProduct().getBiayaJsPenyPer(); i++) {
             CicilanEntity cic = new CicilanEntity();
             cic.setNoTransaksi(x.getNoTransaksi());
@@ -264,11 +298,11 @@ public class CicTetapService implements Serializable {
             cic.setTxStatus(status);
             cic.setTanggalAktif(new Date(x.getTanggalTx().getTime()));
 
-            cal.add(Calendar.MONTH, x.getProduct().getBiayaJsPenyPer());
-            cal.add(Calendar.DAY_OF_MONTH, -1);
-            cic.setTanggalJatuhTempo(new Date(cal.getTime().getTime()));
+            date.add(Calendar.MONTH, x.getProduct().getBiayaJsPenyPer());
+            date.add(Calendar.DAY_OF_MONTH, -1);
+            cic.setTanggalJatuhTempo(new Date(date.getTime().getTime()));
 
-            cal.add(Calendar.DAY_OF_MONTH, 1);
+            date.add(Calendar.DAY_OF_MONTH, 1);
 
             cic.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 

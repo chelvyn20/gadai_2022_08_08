@@ -24,7 +24,7 @@ public class CustomerEntity {
 
     // @OneToMany(targetEntity = CicTetapEntity.class, mappedBy = "customer")  
     
-    @JoinColumn (name = "customer_id" , referencedColumnName = "customer_id")
+    // @JoinColumn (name = "customer_id" , referencedColumnName = "customer_id")
     // private CicTetapEntity cicil;
 
     @Column(name = "customer_id")

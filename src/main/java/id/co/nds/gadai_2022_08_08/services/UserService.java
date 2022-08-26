@@ -100,7 +100,8 @@ public class UserService implements Serializable {
             user.setMaxLimit(userModel.getUserTxnLimit().doubleValue());
         }
 
-        user.setCreatedBy(userModel.getActorId());
+        user.setUpdatedBy(userModel.getActorId());
+        user.setUpdatedDate(new Timestamp(System.currentTimeMillis()));
 
         return userRepo.save(user);
     }

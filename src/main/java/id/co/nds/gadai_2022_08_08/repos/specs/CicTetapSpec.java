@@ -29,7 +29,7 @@ public class CicTetapSpec implements Specification<CicTetapEntity> {
 
     @Override
     public Predicate toPredicate(Root<CicTetapEntity> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-        
+
         Predicate p = cb.and();
 
         Join<CicTetapEntity, ProductEntity> joinProduct = root.join("product");
@@ -39,6 +39,12 @@ public class CicTetapSpec implements Specification<CicTetapEntity> {
             p.getExpressions()
                     .add(cb.like(cb.lower(root.get("noTransaksi")),
                             "%" + cicTetapModel.getNoTransaksi().toLowerCase() + "%"));
+        }
+
+        if (cicTetapModel.getActorId() != null && cicTetapModel.getActorId().length() > 0) {
+            p.getExpressions()
+                    .add(cb.like(cb.lower(root.get("actorId")),
+                            "%" + cicTetapModel.getActorId().toLowerCase() + "%"));
         }
 
         if (cicTetapModel.getCustKtp() != null) {
@@ -65,14 +71,16 @@ public class CicTetapSpec implements Specification<CicTetapEntity> {
         }
 
         if (cicTetapModel.getProductName() != null) {
-
             p.getExpressions().add(cb.like(cb.lower(joinProduct.get("productName")),
                     "%" + cicTetapModel.getProductName() + "%"));
         }
 
         if (cicTetapModel.getTrxDateBegin() != null && cicTetapModel.getTrxDateEnd() != null) {
             try {
-                p.getExpressions().add(cb.between(root.get("tanggalTx"), new SimpleDateFormat("yyyy-MM-dd").parse(cicTetapModel.getTrxDateBegin()), new SimpleDateFormat("yyyy-MM-dd").parse(cicTetapModel.getTrxDateEnd())));
+                p.getExpressions()
+                        .add(cb.between(root.get("tanggalTx"),
+                                new SimpleDateFormat("yyyy-MM-dd").parse(cicTetapModel.getTrxDateBegin()),
+                                new SimpleDateFormat("yyyy-MM-dd").parse(cicTetapModel.getTrxDateEnd())));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

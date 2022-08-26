@@ -27,6 +27,15 @@ public class CicTetapModel {
     private Double totalNilaiPinjam;
     private Double TxLtv;
 
+    private BarangModel[] daftarBarang;
+    
+    public BarangModel[] getDaftarBarang() {
+        return daftarBarang;
+    }
+
+    public void setDaftarBarang(BarangModel[] daftarBarang) {
+        this.daftarBarang = daftarBarang;
+    }
     
     public Double getTxLtv() {
         return TxLtv;

@@ -143,7 +143,7 @@ public class ProductService implements Serializable {
             Product.setBiayaDendaKeterlambatanPer(ProductModel.getProductBiayaDendaperiode());
         }
 
-        Product.setCreatedBy(ProductModel.getActorId());
+        Product.setUpdatedBy(ProductModel.getActorId());
 
         return productRepo.save(Product);
     }

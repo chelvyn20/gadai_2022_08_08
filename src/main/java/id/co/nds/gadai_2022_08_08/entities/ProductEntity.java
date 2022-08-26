@@ -32,7 +32,7 @@ public class ProductEntity {
     @GeneratedValue(generator = "product_id_seq")
 
     // @OneToMany(targetEntity = ProductEntity.class, mappedBy = "productId")
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    // @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     // private CicTetapEntity cicil;
     @Column(name = "product_id")
     private String productId;
